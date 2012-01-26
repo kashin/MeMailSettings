@@ -1,0 +1,14 @@
+Source: memailsettings
+Section: user/misc
+Priority: optional
+Maintainer: Sergey Kashin  <sergey.don.kashin@gmail.com>
+Build-Depends: debhelper (>= 5), cdbs, libqt4-dev, libaccounts-qt-dev
+Standards-Version: 3.8.4
+Homepage: 
+
+Package: memailsettings
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: MeMailSettings
+ Application can change mail account's settings.
+XB-Maemo-Display-Name: MeMailSettings

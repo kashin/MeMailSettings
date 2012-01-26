@@ -1,0 +1,9 @@
+tmp
+files
+*.debhelper
+*.debhelper.log
+*.substvars
+stamp-makefile-*
+
+MeMailSettings
+MeMailSettings-dbg

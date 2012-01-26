@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+  
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/makefile.mk
+include /usr/share/cdbs/1/class/qmake.mk
+
+CXXFLAGS += -Werror -Wall -g -O3
+CFLAGS += -Werror -Wall
+
+PACKAGE_TARGETS := $(foreach pkg,$(DEB_ALL_PACKAGES),binary/$(pkg))
+
+$(PACKAGE_TARGETS)::
+	[ ! -f debian/$(notdir $@).aegis ] || aegis-deb-util --add-manifest $(notdir $@)
+
+
+DEB_QMAKE_CONFIG_VAL := debug
+DEB_QMAKE_ARGS := 'CONFIG+=$(DEB_QMAKE_CONFIG_VAL)' INSTALL_ROOT=/usr
