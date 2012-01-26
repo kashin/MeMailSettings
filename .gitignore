@@ -1,4 +1,5 @@
 *.o
 moc_*.cpp
 Makefile
-mail-debug-settings
+memailsettings
+MeMailSettings*
