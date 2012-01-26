@@ -2,4 +2,4 @@
 moc_*.cpp
 Makefile
 memailsettings
-MeMailSettings*
+MeMailSettings*.user
