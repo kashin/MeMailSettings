@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     MainView* view = new MainView();
 
     view->setSource(QUrl::fromLocalFile(view->getSourcePath()));
-    view->show();
+    view->showFullScreen();
 
     return app.exec();
 }

@@ -1,4 +1,5 @@
 #include <QSettings>
+#include <QDebug>
 
 #include "mainview.h"
 
