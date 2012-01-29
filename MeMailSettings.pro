@@ -3,6 +3,7 @@ SUBDIRS = src
 
 
 OTHER_FILES += MailDebugSettings.desktop \
+               debian/memailsettings.aegis
 
 desktop_file.files = MeMailSettings.desktop
 desktop_file.path = $$INSTALL_ROOT/share/applications

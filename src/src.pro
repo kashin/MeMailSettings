@@ -20,12 +20,6 @@ HEADERS += mainview.h \
            accountsettingsreader.h \
            accountslistmodel.h
 
-OTHER_FILES += ../qml/MeMailSettings/main.qml \
-                ../qml/MeMailSettings/MainPage.qml \
-                ../qml/MeMailSettings/AccountsListView.qml \
-                ../qml/MeMailSettings/AccountsItem.qml
-
-
 qml_files.files += ../qml/MeMailSettings/main.qml \
                    ../qml/MeMailSettings/MainPage.qml \
                    ../qml/MeMailSettings/AccountsListView.qml \
