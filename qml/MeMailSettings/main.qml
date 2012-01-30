@@ -3,16 +3,16 @@ import com.nokia.meego 1.0
 
 PageStackWindow {
      id: appWindow
-     color: "blue"
-     initialPage: mainPage
-
-     MainPage {
-         id: mainPage
+     color: "black"
+     initialPage: MainPage {
+         onAccountClicked: {
+             pageStack.push(settingsListPage, { accountId: id})
+         }
      }
 
      ToolBarLayout {
          id: commonTools
-         visible: true
+         visible: false
          ToolIcon {
              platformIconId: "toolbar-view-menu"
              anchors.right: (parent === undefined) ? undefined : parent.right
@@ -21,11 +21,14 @@ PageStackWindow {
      }
      Menu {
          id: mainMenu
-         visualParent: pageStack
+         visualParent: settingsListPage
          MenuLayout {
              MenuItem {
-                 text: qsTr("Some menu item")
+                 text: qsTr("Save settings")
              }
          }
+     }
+     SettingsListPage {
+         id: settingsListPage
      }
 }

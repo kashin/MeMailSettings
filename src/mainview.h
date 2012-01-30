@@ -5,6 +5,7 @@
 
 class QSettings;
 class AccountsListModel;
+class SettingsListModel;
 
 class MainView : public QDeclarativeView
 {
@@ -24,6 +25,7 @@ private:
 private:
     QSettings* mSettings;
     AccountsListModel* mAccountsModel;
+    SettingsListModel* mSettingsModel;
 };
 
 #endif // MAINVIEW_H

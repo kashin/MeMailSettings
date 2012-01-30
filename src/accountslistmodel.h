@@ -9,11 +9,13 @@ class AccountSettingsReader;
 
 class AccountsListModel: public QAbstractItemModel
 {
+Q_OBJECT
 public:
     enum Roles
     {
         iconRole = Qt::UserRole + 1,
-        displayNameRole
+        displayNameRole,
+        accountIdRole
     };
 
     AccountsListModel(QObject* parent = 0);

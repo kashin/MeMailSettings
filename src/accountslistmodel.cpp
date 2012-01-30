@@ -10,25 +10,23 @@ AccountsListModel::AccountsListModel(QObject *parent)
     QHash<int, QByteArray> roles;
     roles[iconRole] = "iconRole";
     roles[displayNameRole] = "displayNameRole";
+    roles[accountIdRole] = "accountIdRole";
     setRoleNames(roles);
 }
 
 QModelIndex AccountsListModel::index(int row, int column, const QModelIndex & parent) const
 {
-    qCritical() << Q_FUNC_INFO;
     return ((row >= 0 && column >= 0) && row < rowCount(parent)) ? createIndex(row, column, parent.row()) : QModelIndex();
 }
 
  int AccountsListModel::rowCount ( const QModelIndex & parent) const
  {
-     qCritical() << Q_FUNC_INFO;
      Q_UNUSED(parent);
      return mIds.count();
  }
 
  int AccountsListModel::columnCount ( const QModelIndex & parent) const
  {
-     qCritical() << Q_FUNC_INFO;
      Q_UNUSED(parent);
      return 1;
  }
@@ -41,7 +39,6 @@ QModelIndex AccountsListModel::index(int row, int column, const QModelIndex & pa
 
 QVariant AccountsListModel::data(const QModelIndex& index, int role) const
 {
-    qCritical() << Q_FUNC_INFO;
     if (!index.isValid())
         return QVariant();
 
@@ -57,6 +54,8 @@ QVariant AccountsListModel::data(const QModelIndex& index, int role) const
 
     case displayNameRole:
         return mAccountSettingsReader->getAccountsDisplayName(id);
+    case accountIdRole:
+        return id;
 
     default:
         break;
@@ -67,10 +66,10 @@ QVariant AccountsListModel::data(const QModelIndex& index, int role) const
 
 Accounts::AccountId AccountsListModel::getIdFromIndex(const QModelIndex& index) const
 {
-    qCritical() << Q_FUNC_INFO;
     if (index.isValid()) {
         int row = index.row();
         if ((row >= 0) && (row < mIds.count())) {
+            qCritical() << Q_FUNC_INFO << mIds.at(row);
             return mIds.at(row);
         }
     }
