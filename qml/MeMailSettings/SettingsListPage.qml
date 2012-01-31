@@ -5,7 +5,10 @@ Page {
     id: settingsListPage
     property int accountId: 0
     tools: commonTools
-    color: "black"
+
+    function setAccountId(id) {
+        accountId = id;
+    }
 
     MouseArea {
         anchors.fill: parent
@@ -17,12 +20,6 @@ Page {
          accountId: settingsListPage.accountId
          anchors.top: parent.top
      }
-
-    Button {
-        anchors.bottom: parent.bottom
-        text: "Go Back"
-        onClicked: pageStack.pop(settingsListPage)
-    }
 
     onAccountIdChanged: {
         settingsList.setAccountId(accountId)

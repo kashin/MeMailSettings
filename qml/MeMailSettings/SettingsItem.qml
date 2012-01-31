@@ -3,23 +3,41 @@ import QtQuick 1.0
 import com.nokia.meego 1.0
 
 Row {
+    id: settingsItem
+    width: parent.width
+    height: settingsLabel.height + settingsEditField.height + saveButton.height
+            + settingsLabel.anchors.bottomMargin + settingsEditField.anchors.bottomMargin
+            + saveButton.anchors.bottomMargin
+    anchors.topMargin: 40
+    anchors.bottomMargin: 40
+
     Label {
         id: settingsLabel
-        anchors.left: parent.left
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottomMargin: 10
         text: keyRole
-        platformStyle: LabelStyle {
-            textColor: "black"
-            fontFamily: "Arial"
-            fontPixelSize: 25
-            inverted: true
+        style: LabelStyle {
+            fontPixelSize: settingsLabel.height + 13
         }
+        wrapMode: Text.WordWrap
     }
-    TextEdit {
+
+    TextField {
         id: settingsEditField
-        anchors.right: parent.right
+        anchors.top: settingsLabel.bottom
+        anchors.left: parent.left
+        anchors.bottomMargin: 10
+        width: parent.width
         text:  valueRole
-        font.pointSize: 25
-        color: "red"
         focus: false
+    }
+
+    Button {
+        id: saveButton
+        anchors.top: settingsEditField.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 10
+        anchors.bottomMargin: 10
+        text: "Save setting"
     }
 }

@@ -4,22 +4,26 @@ import com.nokia.meego 1.0
 
 Row {
     id: accountsItem
+    anchors.topMargin: 20
+    height: providersIcon.height
+    width: parent.width
     Image {
         id: providersIcon
         source: "image://theme/" + iconRole
+        anchors.bottomMargin: 10
     }
 
     Label {
         id: providersLabel
         anchors.left: providersIcon.right
+        anchors.verticalCenter: providersIcon.verticalCenter
         height: providersIcon.height
         text: displayNameRole
-        wrapMode: Text.WordWrap
-        platformStyle: LabelStyle {
-            textColor: "blue"
-            fontFamily: "Arial"
-            fontPixelSize: providersIcon.height - 15
+        style: LabelStyle {
+            fontPixelSize: providersIcon.height - 30
         }
+
+        wrapMode: Text.WordWrap
     }
 
     signal itemClicked(int accountId)

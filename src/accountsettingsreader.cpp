@@ -63,15 +63,15 @@ const QString AccountSettingsReader::getProviderIconName(const AccountId& id) co
     return QString();
 }
 
-const QVariant AccountSettingsReader::getAccountsValue(const Service* service,
-                                const QString& key,
+const QVariant AccountSettingsReader::getAccountsValue(const QString& key,
                                 const AccountId& id) const
 {
     Account *acc = mAccountsManager->account(id);
     if (acc)
     {
+        // FIXME: We should check settings via value() method.
         QVariant result;
-        acc->selectService(service);
+//        acc->selectService(service);
         result = acc->valueAsString(key, QString());
         if (!result.toString().isEmpty()) {
             delete acc;

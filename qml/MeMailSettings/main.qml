@@ -6,13 +6,26 @@ PageStackWindow {
      color: "black"
      initialPage: MainPage {
          onAccountClicked: {
-             pageStack.push(settingsListPage, { accountId: id})
+             pageStack.push(settingsListPage)
+             settingsListPage.setAccountId(id)
          }
      }
+
+     Component.onCompleted: {
+         theme.inverted = true;
+     }
+
 
      ToolBarLayout {
          id: commonTools
          visible: false
+         ToolIcon {
+             iconId: "toolbar-back"
+             onClicked: {
+                 mainMenu.close()
+                 pageStack.pop()
+             }
+         }
          ToolIcon {
              platformIconId: "toolbar-view-menu"
              anchors.right: (parent === undefined) ? undefined : parent.right
@@ -21,10 +34,9 @@ PageStackWindow {
      }
      Menu {
          id: mainMenu
-         visualParent: settingsListPage
          MenuLayout {
              MenuItem {
-                 text: qsTr("Save settings")
+                 text: qsTr("Сделать добро!")
              }
          }
      }

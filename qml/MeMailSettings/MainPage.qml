@@ -4,10 +4,7 @@ import com.nokia.meego 1.0
 Page {
     id: mainPage
     tools: commonTools
-    color: "black"
-
     signal accountClicked(int id)
-
 
     MouseArea {
         anchors.fill: parent

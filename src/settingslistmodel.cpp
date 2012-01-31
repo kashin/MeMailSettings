@@ -34,6 +34,7 @@ void SettingsListModel::initModel()
         mKeys += mSettingsReader->getAccountsKeys(service, mAccountId);
     }
     qDebug() << Q_FUNC_INFO << mKeys.count();
+    reset();
 }
 
 int SettingsListModel::rowCount ( const QModelIndex & parent) const
@@ -72,13 +73,8 @@ QVariant SettingsListModel::data(const QModelIndex& index, int role) const
     case valueRole:
     {
         QVariant result;
-        foreach (const Accounts::Service* service, mSettingsReader->getAccountsServices(mAccountId))
-        {
-            result = mSettingsReader->getAccountsValue(service, key, mAccountId);
-            qDebug() << Q_FUNC_INFO << "value=" << result;
-            if (result.isValid())
-                break;
-        }
+        result = mSettingsReader->getAccountsValue(key, mAccountId);
+        qDebug() << Q_FUNC_INFO << "value=" << result;
         return result;
     }
 
