@@ -28,6 +28,7 @@ public:
 
 public slots:
     void setAccountId(const int id);
+    void saveAccountSetting(const QString& key, const QVariant& value);
 
 private:
     QString getIdFromIndex(const QModelIndex& index) const;

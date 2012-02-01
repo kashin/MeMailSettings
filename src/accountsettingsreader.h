@@ -22,6 +22,8 @@ public:
    const QVariant getAccountsValue(const QString& key,
                                    const Accounts::AccountId& id) const;
    const Accounts::ServiceList getAccountsServices(const Accounts::AccountId& id) const;
+   void saveAccountsSetting(const Accounts::AccountId& id,
+                            const QString& key, const QVariant& value);
 
 private:
     Accounts::Manager* mAccountsManager;

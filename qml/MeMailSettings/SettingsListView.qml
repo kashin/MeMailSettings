@@ -3,6 +3,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 ListView {
+    id: settingsList
     property int accountId: 0
 
     function setAccountId(id)
@@ -14,14 +15,16 @@ ListView {
 
     model: settingsModel
     delegate: SettingsItem {
+        onSaveSetting: {
+            settingsModel.saveAccountSetting(settingsKey, settingsValue)
+        }
     }
 
     header: Label {
         id: settingsListLabel
-        anchors.top: parent.top
         anchors.bottomMargin: 10
+        anchors.horizontalCenter: settingsList.horizontalCenter
         text: "Settings list."
-        color: "black"
         font.pixelSize: 35
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }

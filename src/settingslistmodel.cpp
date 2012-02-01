@@ -26,6 +26,11 @@ void SettingsListModel::setAccountId(const int id)
     initModel();
 }
 
+void SettingsListModel::saveAccountSetting(const QString &key, const QVariant &value)
+{
+    mSettingsReader->saveAccountsSetting(mAccountId, key, value);
+}
+
 void SettingsListModel::initModel()
 {
     mKeys = QStringList();
@@ -74,7 +79,6 @@ QVariant SettingsListModel::data(const QModelIndex& index, int role) const
     {
         QVariant result;
         result = mSettingsReader->getAccountsValue(key, mAccountId);
-        qDebug() << Q_FUNC_INFO << "value=" << result;
         return result;
     }
 

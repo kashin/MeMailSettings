@@ -1,3 +1,9 @@
+memailsettings (0.0.2) unstable; urgency=low
+
+  * Alpha version. Added save setting functionality.
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Wed, 01 Feb 2012 17:27:31 +0400
+
 memailsettings (0.0.1) unstable; urgency=low
 
   * Let's debianize it

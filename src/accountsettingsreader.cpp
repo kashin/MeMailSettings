@@ -69,34 +69,38 @@ const QVariant AccountSettingsReader::getAccountsValue(const QString& key,
     Account *acc = mAccountsManager->account(id);
     if (acc)
     {
-        // FIXME: We should check settings via value() method.
         QVariant result;
-//        acc->selectService(service);
-        result = acc->valueAsString(key, QString());
-        if (!result.toString().isEmpty()) {
-            delete acc;
-            qDebug() << Q_FUNC_INFO << "result:" << result;
-            return result;
-        }
-        result = acc->valueAsInt(key);
-        if (result.canConvert<int>()) {
-            delete acc;
-            qDebug() << Q_FUNC_INFO << "result:" << result;
-            return result;
-        }
-        result = acc->valueAsUInt64(key);
-        if (result.canConvert<quint64>()) {
-            delete acc;
-            qDebug() << Q_FUNC_INFO << "result:" << result;
-            return result;
-        }
-        result = acc->valueAsBool(key);
-        if (result.canConvert<bool>()) {
-            delete acc;
-            qDebug() << Q_FUNC_INFO << "result:" << result;
-            return result;
+
+        Accounts::ServiceList services = acc->services();
+        services.append((Accounts::Service*)NULL);
+
+        foreach (const Accounts::Service* service, services)
+        {
+            acc->selectService(service);
+            Accounts::SettingSource source;
+            result = acc->valueAsString(key, QString(), &source);
+            if (source != Accounts::NONE)
+            {
+                delete acc;
+                return result;
+            }
+            //argh, useless crap is bellow
+            result = acc->valueAsInt(key, -1, &source);
+            if (source != Accounts::NONE)
+            {
+                delete acc;
+                return result;
+            }
+            result = acc->valueAsBool(key, false, &source);
+            if (source != Accounts::NONE)
+            {
+                delete acc;
+                return result;
+            }
+            // end of useles crap
         }
         qWarning() << Q_FUNC_INFO << "something is wrong! Value for key:" << key << "is not found";
+        delete acc;
         return QVariant();
     }
     qWarning() << Q_FUNC_INFO << "account" << id << "not found";
@@ -116,4 +120,34 @@ const Accounts::ServiceList AccountSettingsReader::getAccountsServices(const Acc
     }
     qWarning() << Q_FUNC_INFO << "account" << id << "not found";
     return Accounts::ServiceList();
+}
+
+void AccountSettingsReader::saveAccountsSetting(const Accounts::AccountId &id, const QString &key, const QVariant &value)
+{
+    Account *acc = mAccountsManager->account(id);
+    if (acc)
+    {
+        Accounts::ServiceList services = acc->services();
+        services.append((Accounts::Service*)NULL);
+        // yeah, I know it looks nasty but since I din't mapped
+        // keys and services yet...
+        foreach (const Accounts::Service* service, services)
+        {
+            acc->selectService(service);
+            Accounts::SettingSource source;
+            acc->valueAsString(key, QString(), &source);
+            if (source != Accounts::NONE)
+            {
+                acc->setValue(key, value);
+                acc->syncAndBlock();
+                delete acc;
+                return;
+            }
+        }
+        qWarning() << Q_FUNC_INFO << "Setting" << key << "is not saved in account" << id;
+        delete acc;
+        return;
+    }
+    qWarning() << Q_FUNC_INFO << "account" << id << "not found";
+    return;
 }

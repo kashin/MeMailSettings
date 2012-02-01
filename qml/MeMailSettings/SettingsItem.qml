@@ -11,13 +11,18 @@ Row {
     anchors.topMargin: 40
     anchors.bottomMargin: 40
 
+    property string key: keyRole
+    property string value: valueRole
+
+    signal saveSetting(string settingsKey, string settingsValue)
+
     Label {
         id: settingsLabel
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin: 10
         text: keyRole
         style: LabelStyle {
-            fontPixelSize: settingsLabel.height + 13
+            fontPixelSize: 28
         }
         wrapMode: Text.WordWrap
     }
@@ -39,5 +44,8 @@ Row {
         anchors.topMargin: 10
         anchors.bottomMargin: 10
         text: "Save setting"
+        onClicked: {
+            settingsItem.saveSetting(settingsLabel.text, settingsEditField.text)
+        }
     }
 }
