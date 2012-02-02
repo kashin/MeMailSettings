@@ -13,8 +13,9 @@ Q_OBJECT
 public:
     enum Roles
     {
-        iconRole = Qt::UserRole + 1,
-        displayNameRole,
+        iconSource = Qt::UserRole + 1,
+        title,
+        subtitle,
         accountIdRole
     };
 

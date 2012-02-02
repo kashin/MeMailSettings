@@ -8,8 +8,9 @@ AccountsListModel::AccountsListModel(QObject *parent)
     mIds = mAccountSettingsReader->getAccountsIds();
     qCritical() << Q_FUNC_INFO << mIds;
     QHash<int, QByteArray> roles;
-    roles[iconRole] = "iconRole";
-    roles[displayNameRole] = "displayNameRole";
+    roles[iconSource] = "iconSource";
+    roles[subtitle] = "subtitle";
+    roles[title] = "title";
     roles[accountIdRole] = "accountIdRole";
     setRoleNames(roles);
 }
@@ -49,14 +50,14 @@ QVariant AccountsListModel::data(const QModelIndex& index, int role) const
     // Some items can be processed without loading the message data
     switch(role)
     {
-    case iconRole:
-        return mAccountSettingsReader->getProviderIconName(id);
-
-    case displayNameRole:
+    case iconSource:
+        return "image://theme/"+mAccountSettingsReader->getProviderIconName(id);
+    case subtitle:
         return mAccountSettingsReader->getAccountsDisplayName(id);
+    case title:
+        return mAccountSettingsReader->getProviderName(id);
     case accountIdRole:
         return id;
-
     default:
         break;
     }

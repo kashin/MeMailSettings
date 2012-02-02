@@ -23,7 +23,7 @@ ListView {
     header: Label {
         id: settingsListLabel
         anchors.bottomMargin: 10
-        anchors.horizontalCenter: settingsList.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         text: "Settings list."
         font.pixelSize: 35
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere

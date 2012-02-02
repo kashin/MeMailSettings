@@ -1,41 +1,21 @@
 import QtQuick 1.0
-
 import com.nokia.meego 1.0
+import com.nokia.extras 1.0
 
-Row {
+ListDelegate {
     id: accountsItem
-    anchors.topMargin: 20
-    height: providersIcon.height
-    width: parent.width
-    Image {
-        id: providersIcon
-        source: "image://theme/" + iconRole
-        anchors.bottomMargin: 10
-    }
-
-    Label {
-        id: providersLabel
-        anchors.left: providersIcon.right
-        anchors.verticalCenter: providersIcon.verticalCenter
-        height: providersIcon.height
-        text: displayNameRole
-        style: LabelStyle {
-            fontPixelSize: providersIcon.height - 30
-        }
-
-        wrapMode: Text.WordWrap
-    }
-
     signal itemClicked(int accountId)
     property int accountId: 0
 
+    onClicked: { accountsItem.itemClicked(accountId); }
+
+    // right arrow
+    Image {
+        id: image
+        anchors.rightMargin: 15
+        anchors { verticalCenter: accountsItem.verticalCenter; right: parent.right }
+        source: "image://theme/icon-m-common-drilldown-arrow-inverse"
+    }
 
     Component.onCompleted: accountId = accountIdRole
-
-    MouseArea {
-        anchors.fill: providersLabel
-        onClicked: {
-            accountsItem.itemClicked(accountId);
-        }
-    }
 }

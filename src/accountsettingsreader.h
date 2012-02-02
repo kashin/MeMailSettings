@@ -19,6 +19,7 @@ public:
                                      const Accounts::AccountId& id) const;
    const QString getAccountsDisplayName(const Accounts::AccountId& id) const;
    const QString getProviderIconName(const Accounts::AccountId& id) const;
+   const QString getProviderName(const Accounts::AccountId& id) const;
    const QVariant getAccountsValue(const QString& key,
                                    const Accounts::AccountId& id) const;
    const Accounts::ServiceList getAccountsServices(const Accounts::AccountId& id) const;

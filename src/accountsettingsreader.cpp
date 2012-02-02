@@ -63,6 +63,24 @@ const QString AccountSettingsReader::getProviderIconName(const AccountId& id) co
     return QString();
 }
 
+const QString AccountSettingsReader::getProviderName(const AccountId& id) const
+{
+    Account *acc = mAccountsManager->account(id);
+    if (acc)
+    {
+        Provider *provider = mAccountsManager->provider(acc->providerName());
+        if(!provider)
+        {
+            qWarning() << Q_FUNC_INFO << "there is no such provider:" << acc->providerName();
+            return QString();
+        }
+
+        return provider->name();
+    }
+    qWarning() << Q_FUNC_INFO << "account" << id << "not found";
+    return QString();
+}
+
 const QVariant AccountSettingsReader::getAccountsValue(const QString& key,
                                 const AccountId& id) const
 {
