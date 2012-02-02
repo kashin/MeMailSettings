@@ -26,6 +26,9 @@ public:
     virtual QModelIndex parent(const QModelIndex &idx) const;
     virtual QVariant data(const QModelIndex& index, int role) const;
 
+signals:
+    void saveInProgress();
+
 public slots:
     void setAccountId(const int id);
     void saveAccountSetting(const QString& key, const QVariant& value);

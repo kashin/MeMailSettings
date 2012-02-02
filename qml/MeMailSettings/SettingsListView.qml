@@ -11,6 +11,8 @@ ListView {
         accountId = id;
     }
 
+    signal saveInProgress()
+
     anchors.fill: parent
 
     model: settingsModel
@@ -33,4 +35,5 @@ ListView {
         settingsModel.setAccountId(accountId)
     }
 
+    Component.onCompleted: settingsModel.saveInProgress.connect(settingsList.saveInProgress)
 }

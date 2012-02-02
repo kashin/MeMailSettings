@@ -3,6 +3,7 @@
 
 #include <QStringList>
 #include <QDebug>
+#include <QTimer>
 
 SettingsListModel::SettingsListModel(QObject *parent)
     : QAbstractItemModel(parent),
@@ -28,7 +29,12 @@ void SettingsListModel::setAccountId(const int id)
 
 void SettingsListModel::saveAccountSetting(const QString &key, const QVariant &value)
 {
+    emit saveInProgress();
     mSettingsReader->saveAccountsSetting(mAccountId, key, value);
+    // FIXME: There is no need in such signal and single shot atm, but
+    // in theory "saving" of the all changed settings might take quite long time,
+    // so lets show a progress dialog at least for 0.5 sec :)
+    QTimer::singleShot(500, this, SIGNAL(saveInProgress()));
 }
 
 void SettingsListModel::initModel()
