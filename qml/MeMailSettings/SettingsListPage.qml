@@ -11,6 +11,10 @@ Page {
         accountId = id;
     }
 
+    onAccountIdChanged: {
+        settingsList.setAccountId(accountId)
+    }
+
     MouseArea {
         anchors.fill: parent
         enabled: pageStack.busy
@@ -33,10 +37,6 @@ Page {
         }
     }
 
-    onAccountIdChanged: {
-        settingsList.setAccountId(accountId)
-    }
-
     ToolBarLayout {
         id: settingsPageTools
         visible: false
@@ -55,6 +55,7 @@ Page {
             }
         }
     }
+
     SettingsPageMenu {
         id: settingsPageMenu
 

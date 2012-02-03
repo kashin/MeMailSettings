@@ -7,7 +7,7 @@ Menu {
     signal saveSettingsClicked()
     MenuLayout {
         MenuItem {
-            text: qsTr("Save settings")
+            text: qsTr("Save Settings")
             onClicked:
                 saveSettingsClicked()
         }

@@ -1,3 +1,10 @@
+memailsettings (0.0.3) unstable; urgency=low
+
+  * Updated UI. Progress indicator during saving and about dialog are
+    added
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Fri, 03 Feb 2012 10:48:27 +0400
+
 memailsettings (0.0.2) unstable; urgency=low
 
   * Alpha version. Added save setting functionality.
