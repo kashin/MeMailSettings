@@ -169,3 +169,20 @@ void AccountSettingsReader::saveAccountsSetting(const Accounts::AccountId &id, c
     qWarning() << Q_FUNC_INFO << "account" << id << "not found";
     return;
 }
+
+void AccountSettingsReader::onSaveAccountSettings(const int &id,
+                                                  const QStringList &keys,
+                                                  QVariantList values)
+{
+    foreach (const QString& key, keys)
+    {
+        if (!values.isEmpty())
+            saveAccountsSetting(id, key,values.takeFirst());
+        else
+        {
+            qCritical() << Q_FUNC_INFO << "Ouch, something nasty is happened. Keys list is bigger then values list!";
+            return;
+        }
+    }
+    emit settingsSaved();
+}

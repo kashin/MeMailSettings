@@ -24,6 +24,9 @@ Page {
          id: settingsList
          accountId: settingsListPage.accountId
          anchors.top: parent.top
+         onSaveInProgress: {
+             value ? saveDialog.open() : saveDialog.close()
+         }
      }
 
     QueryDialog {
@@ -64,11 +67,10 @@ Page {
         }
 
         onSaveSettingsClicked: {
-            (saveDialog.status == DialogStatus.Closed) ? saveDialog.open() : saveDialog.close()
+            settingsList.saveSettings();
         }
     }
 
-    Component.onCompleted: settingsList.saveInProgress.connect(settingsPageMenu.saveSettingsClicked)
     AboutDialog {
         id: aboutDialog
     }

@@ -1,6 +1,7 @@
 import QtQuick 1.1
 
 import com.nokia.meego 1.0
+import com.nokia.extras 1.0
 
 ListView {
     id: settingsList
@@ -11,21 +12,27 @@ ListView {
         accountId = id;
     }
 
-    signal saveInProgress()
+    function saveSettings()
+    {
+        settingsModel.saveAccountSettings()
+    }
+
+    Component.onCompleted: settingsModel.saveInProgress.connect(settingsList.saveInProgress)
+
+    signal saveInProgress(bool value)
 
     anchors.fill: parent
 
     model: settingsModel
     delegate: SettingsItem {
-        onSaveSetting: {
-            settingsModel.saveAccountSetting(settingsKey, settingsValue)
+        onValueChanged: {
+            settingsModel.valueChanged(settingsKey, settingsValue)
         }
     }
 
     header: Label {
         id: settingsListLabel
         anchors.bottomMargin: 10
-        anchors.horizontalCenter: parent.horizontalCenter
         text: "Settings list."
         font.pixelSize: 35
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
@@ -35,5 +42,17 @@ ListView {
         settingsModel.setAccountId(accountId)
     }
 
-    Component.onCompleted: settingsModel.saveInProgress.connect(settingsList.saveInProgress)
+    section {
+        property: "groupRole"
+        criteria: ViewSection.FullString
+        delegate: SectionHeaderItem {sectionText: section}
+    }
+
+    SectionScroller {
+        listView: settingsList
+    }
+
+    ScrollDecorator {
+        flickableItem: settingsList
+    }
 }

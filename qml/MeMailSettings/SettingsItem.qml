@@ -5,16 +5,14 @@ import com.nokia.meego 1.0
 Row {
     id: settingsItem
     width: parent.width
-    height: settingsLabel.height + settingsEditField.height + saveButton.height
-            + settingsLabel.anchors.bottomMargin + settingsEditField.anchors.bottomMargin
-            + saveButton.anchors.bottomMargin
+    height: childrenRect.height
     anchors.topMargin: 40
     anchors.bottomMargin: 40
 
     property string key: keyRole
     property string value: valueRole
 
-    signal saveSetting(string settingsKey, string settingsValue)
+    signal valueChanged(string settingsKey, string settingsValue)
 
     Label {
         id: settingsLabel
@@ -32,20 +30,9 @@ Row {
         anchors.top: settingsLabel.bottom
         anchors.left: parent.left
         anchors.bottomMargin: 10
-        width: parent.width
+        width: parent.width - 10
         text:  valueRole
         focus: false
-    }
-
-    Button {
-        id: saveButton
-        anchors.top: settingsEditField.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 10
-        anchors.bottomMargin: 10
-        text: "Save setting"
-        onClicked: {
-            settingsItem.saveSetting(settingsLabel.text, settingsEditField.text)
-        }
+        onTextChanged: settingsItem.valueChanged(settingsLabel.text, settingsEditField.text)
     }
 }

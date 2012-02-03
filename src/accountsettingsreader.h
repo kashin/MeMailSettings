@@ -2,6 +2,7 @@
 #define ACCOUNTSETTINGSREADER_H
 
 #include <QObject>
+#include <QVariant>
 
 // Accounts
 #include <Accounts/Manager>
@@ -25,6 +26,13 @@ public:
    const Accounts::ServiceList getAccountsServices(const Accounts::AccountId& id) const;
    void saveAccountsSetting(const Accounts::AccountId& id,
                             const QString& key, const QVariant& value);
+signals:
+   void settingsSaved();
+
+public slots:
+   void onSaveAccountSettings(const int &id,
+                        const QStringList &keys,
+                        QVariantList values);
 
 private:
     Accounts::Manager* mAccountsManager;
