@@ -19,8 +19,6 @@ Item {
     Image {
         id: separator
         anchors.verticalCenter: parent.verticalCenter
-        //anchors.top: p.bottom
-        //anchors.topMargin: 8
         anchors.rightMargin: 10
         anchors.leftMargin: 10
         anchors {right: sectionLabel.left ; left: parent.left}

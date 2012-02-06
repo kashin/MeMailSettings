@@ -6,13 +6,8 @@ PageStackWindow {
     color: "black"
     initialPage: MainPage {
         onAccountClicked: {
-            pageStack.push(settingsListPage)
-            settingsListPage.setAccountId(id)
+            pageStack.push(Qt.resolvedUrl("SettingsListPage.qml"), {accountId: id})
         }
-    }
-
-    SettingsListPage {
-        id: settingsListPage
     }
 
     Component.onCompleted: {
