@@ -31,10 +31,17 @@ public:
         mKey = key;
         emit keyRoleChanged(mKey);
     }
-    void setValueRole(const QString& value)
+
+    // returns true if value was changed
+    bool setValueRole(const QString& value)
     {
-        mValue = value;
-        emit valueRoleChanged(mValue);
+        if (value != mValue)
+        {
+            mValue = value;
+            emit valueRoleChanged(mValue);
+            return true;
+        }
+        return false;
     }
 
 signals:
@@ -72,6 +79,7 @@ public:
     Q_INVOKABLE SettingsItem* get(int index) const;
 
     Q_INVOKABLE QString getGroup(const int index) const;
+    Q_INVOKABLE void saveAccountSettings();
 
 signals:
     void saveInProgress(bool value);
@@ -79,7 +87,6 @@ signals:
 
 public slots:
     void setAccountId(const int id);
-    void saveAccountSettings();
     void valueChanged(const QString& key, const QString& value);
 
 private:

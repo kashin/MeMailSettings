@@ -6,7 +6,6 @@ AccountsListModel::AccountsListModel(QObject *parent)
       mAccountSettingsReader(new AccountSettingsReader(this))
 {
     mIds = mAccountSettingsReader->getAccountsIds();
-    qCritical() << Q_FUNC_INFO << mIds;
     QHash<int, QByteArray> roles;
     roles[iconSource] = "iconSource";
     roles[subtitle] = "subtitle";
@@ -70,7 +69,6 @@ Accounts::AccountId AccountsListModel::getIdFromIndex(const QModelIndex& index) 
     if (index.isValid()) {
         int row = index.row();
         if ((row >= 0) && (row < mIds.count())) {
-            qCritical() << Q_FUNC_INFO << mIds.at(row);
             return mIds.at(row);
         }
     }

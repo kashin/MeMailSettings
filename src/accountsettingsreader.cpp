@@ -3,6 +3,7 @@
 //Qt
 #include <QDebug>
 #include <QVariant>
+#include <QTimer>
 
 using namespace Accounts;
 
@@ -177,12 +178,13 @@ void AccountSettingsReader::onSaveAccountSettings(const int &id,
     foreach (const QString& key, keys)
     {
         if (!values.isEmpty())
-            saveAccountsSetting(id, key,values.takeFirst());
+            saveAccountsSetting(id, key, values.takeFirst());
         else
         {
             qCritical() << Q_FUNC_INFO << "Ouch, something nasty is happened. Keys list is bigger then values list!";
             return;
         }
     }
-    emit settingsSaved();
+    //FIXME: stupid workaround to show progress dialog if we are saving too few settings
+    QTimer::singleShot(1000, this, SIGNAL(settingsSaved()));
 }

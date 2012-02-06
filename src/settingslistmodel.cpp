@@ -3,7 +3,6 @@
 
 #include <QStringList>
 #include <QDebug>
-#include <QTimer>
 
 bool lessThen(const QString& first, const QString& second)
 {
@@ -46,7 +45,8 @@ SettingsListModel::SettingsListModel(QObject *parent)
 {
     connect(mSettingsReader, SIGNAL(settingsSaved()), this, SLOT(onSaveSettings()));
     connect(this, SIGNAL(saveSettings(int,QStringList,QVariantList)),
-            mSettingsReader, SLOT(onSaveAccountSettings(int,QStringList,QVariantList)));
+            mSettingsReader, SLOT(onSaveAccountSettings(int,QStringList,QVariantList)),
+            Qt::QueuedConnection);
     QHash<int, QByteArray> roles;
     roles[keyRole] = "keyRole";
     roles[valueRole] = "valueRole";
@@ -80,6 +80,7 @@ void SettingsListModel::saveAccountSettings()
             qCritical() << Q_FUNC_INFO << "There is no" << key << "setting in the account" << mAccountId;
         }
     }
+    // Saving could take some time, so let's do it via event loop
     emit saveSettings(mAccountId, mChangedKeys, values);
 }
 
@@ -87,11 +88,10 @@ void SettingsListModel::valueChanged(const QString &key, const QString &value)
 {
     if (!mItemsCache.contains(key))
     {
-        qCritical() << Q_FUNC_INFO << "Thereis no " << key << "in the items cache!";
+        qCritical() << Q_FUNC_INFO << "There is no " << key << "in the items cache!";
         return;
     }
-    mItemsCache.value(key)->setValueRole(value);
-    if (!mChangedKeys.contains(key))
+    if (mItemsCache.value(key)->setValueRole(value) && !mChangedKeys.contains(key))
         mChangedKeys.append(key);
 }
 
@@ -100,6 +100,7 @@ void SettingsListModel::initModel()
     mKeys = QStringList();
     mItemsCache.clear();
     mGroups.clear();
+    mChangedKeys.clear();
 
     foreach (const Accounts::Service* service, mSettingsReader->getAccountsServices(mAccountId))
     {
@@ -215,7 +216,6 @@ QString SettingsListModel::getIdFromIndex(const QModelIndex& index) const
     if (index.isValid()) {
         int row = index.row();
         if ((row >= 0) && (row < mKeys.count())) {
-            qDebug() << Q_FUNC_INFO << mKeys.at(row);
             return mKeys.at(row);
         }
     }
