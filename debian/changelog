@@ -1,3 +1,9 @@
+memailsettings (0.0.4) unstable; urgency=low
+
+  * Implemented save all settings by one click. Settngs are group now.
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Mon, 06 Feb 2012 12:36:25 +0400
+
 memailsettings (0.0.3) unstable; urgency=low
 
   * Updated UI. Progress indicator during saving and about dialog are
