@@ -8,7 +8,7 @@ Item {
 
     Label {
         id: sectionLabel
-        anchors {right: parent.right ; left: sectionLabel.right}
+        anchors {right: parent.right}
         anchors.leftMargin: 10
         anchors.rightMargin: 10
         color: "white"

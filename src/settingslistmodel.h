@@ -2,7 +2,7 @@
 #define SETTINGSLISTMODEL_H
 
 #include <QAbstractItemModel>
-#include <QMap>
+#include <QHash>
 #include <QStringList>
 
 class AccountSettingsReader;
@@ -15,7 +15,7 @@ class SettingsItem: public QObject
     Q_PROPERTY(QString valueRole READ valueRole WRITE setValueRole NOTIFY valueRoleChanged)
 
 public:
-    SettingsItem(const QString& key, const QString& value, QObject* parent = 0);
+    explicit SettingsItem(const QString& key, const QString& value, QObject* parent = 0);
 
     QString groupRole() const { return mGroup; }
     QString keyRole() const { return mKey; }
@@ -76,7 +76,7 @@ public:
     virtual QModelIndex parent(const QModelIndex &idx) const;
     virtual QVariant data(const QModelIndex& index, int role) const;
 
-    Q_INVOKABLE SettingsItem* get(int index) const;
+    Q_INVOKABLE QVariantMap get(int index) const;
 
     Q_INVOKABLE QString getGroup(const int index) const;
     Q_INVOKABLE void saveAccountSettings();
@@ -101,7 +101,7 @@ private:
     QStringList mKeys;
     QStringList mChangedKeys; // FIXME: Remove this dummy member
     AccountSettingsReader* mSettingsReader;
-    QMap<QString, SettingsItem*> mItemsCache;
+    QHash<QString, SettingsItem*> mItemsCache;
     QStringList mGroups;
 };
 

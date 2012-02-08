@@ -2,6 +2,7 @@
 #include "accountsettingsreader.h"
 
 #include <QStringList>
+#include <QVariant>
 #include <QDebug>
 
 bool lessThen(const QString& first, const QString& second)
@@ -36,7 +37,6 @@ SettingsItem::SettingsItem(const QString &key, const QString &value, QObject *pa
         mGroup = mKey.left(separatorIndex);
     }
 }
-
 
 SettingsListModel::SettingsListModel(QObject *parent)
     : QAbstractItemModel(parent),
@@ -194,12 +194,16 @@ QVariant SettingsListModel::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
-SettingsItem* SettingsListModel::get(int index) const
+QVariantMap SettingsListModel::get(int index) const
 {
-    if (index < mKeys.count() && index >=0 && mItemsCache.contains(mKeys.at(index)))
-        return mItemsCache.value(mKeys.at(index));
+    if (index >=0 && index < mKeys.count() && mItemsCache.contains(mKeys.at(index)))
+    {
+        QVariantMap result;
+        result.insert("groupRole", mItemsCache.value(mKeys.at(index))->groupRole());
+        return result;
+    }
     qWarning() << Q_FUNC_INFO << "There is no " << index << " index!";
-    return 0;
+    return QVariantMap();
 }
 
 
