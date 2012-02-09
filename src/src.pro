@@ -15,22 +15,28 @@ SOURCES += main.cpp \
            mainview.cpp \
            accountsettingsreader.cpp \
            accountslistmodel.cpp \
-           settingslistmodel.cpp
+           settingslistmodel.cpp \
+           foldersmodel.cpp
 
 HEADERS += mainview.h \
            accountsettingsreader.h \
            accountslistmodel.h \
-           settingslistmodel.h
+           settingslistmodel.h \
+           foldersmodel.h
 
 qml_files.files += ../qml/MeMailSettings/main.qml \
+                   ../qml/MeMailSettings/AboutDialog.qml \
                    ../qml/MeMailSettings/AccountsListView.qml \
                    ../qml/MeMailSettings/AccountsItem.qml \
-                   ../qml/MeMailSettings/MainPage.qml \
+                   ../qml/MeMailSettings/AccountsPage.qml \
+                   ../qml/MeMailSettings/FoldersItem.qml \
+                   ../qml/MeMailSettings/FoldersListPage.qml \
+                   ../qml/MeMailSettings/FoldersListView.qml \
                    ../qml/MeMailSettings/SettingsListPage.qml \
                    ../qml/MeMailSettings/SettingsListView.qml \
                    ../qml/MeMailSettings/SettingsItem.qml \
                    ../qml/MeMailSettings/MainMenu.qml \
-                   ../qml/MeMailSettings/AboutDialog.qml \
+                   ../qml/MeMailSettings/MainPage.qml \
                    ../qml/MeMailSettings/SettingsPageMenu.qml \
                    ../qml/MeMailSettings/SectionHeaderItem.qml
 

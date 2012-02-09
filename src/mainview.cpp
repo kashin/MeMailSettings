@@ -4,6 +4,7 @@
 
 #include "accountslistmodel.h"
 #include "settingslistmodel.h"
+#include "foldersmodel.h"
 #include "mainview.h"
 
 static const char* organization = "MeMailSettings";
@@ -16,10 +17,12 @@ MainView::MainView(QDeclarativeView *parent) :
     mSettings = createSettings();
     mAccountsModel = new AccountsListModel(this);
     mSettingsModel = new SettingsListModel(this);
+    mFoldersModel = new FoldersModel(this);
 
     QDeclarativeContext *ctxt = rootContext();
     ctxt->setContextProperty("accountsModel", mAccountsModel);
     ctxt->setContextProperty("settingsModel", mSettingsModel);
+    ctxt->setContextProperty("foldersModel", mFoldersModel);
 }
 
 QString MainView::getSourcePath() const

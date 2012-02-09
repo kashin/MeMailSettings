@@ -1,20 +1,36 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import com.nokia.extras 1.0
 
 Page {
     id: mainPage
     tools: mainTools
 
-    signal accountClicked(int id)
+    ButtonColumn {
+        id: buttonsColumn
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: parent.verticalCenter
+        }
 
-    MouseArea {
-        anchors.fill: parent
-        enabled: pageStack.busy
-    }
-    AccountsListView {
-        id: accountsList
-        anchors.top: parent.top
-        Component.onCompleted: itemClicked.connect(mainPage.accountClicked)
+        Button {
+            id: settingsButton
+            text: qsTr("Edit Settings")
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { showSettings: true })
+            }
+        }
+        Button {
+            id: foldersButton
+            text: qsTr("Edit Folders")
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { showSettings: false })
+            }
+        }
+        Button {
+            id: makeGoodButton
+            text: qsTr("Make Good!")
+        }
     }
 
     ToolBarLayout {

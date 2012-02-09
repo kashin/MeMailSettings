@@ -15,11 +15,6 @@ Page {
         settingsList.setAccountId(accountId)
     }
 
-    MouseArea {
-        anchors.fill: parent
-        enabled: pageStack.busy
-    }
-
     SettingsListView {
          id: settingsList
          accountId: settingsListPage.accountId
