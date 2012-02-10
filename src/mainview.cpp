@@ -18,11 +18,13 @@ MainView::MainView(QDeclarativeView *parent) :
     mAccountsModel = new AccountsListModel(this);
     mSettingsModel = new SettingsListModel(this);
     mFoldersModel = new FoldersModel(this);
+    mAccountsFoldersModel = new AccountsFoldersModel(this);
 
     QDeclarativeContext *ctxt = rootContext();
     ctxt->setContextProperty("accountsModel", mAccountsModel);
     ctxt->setContextProperty("settingsModel", mSettingsModel);
     ctxt->setContextProperty("foldersModel", mFoldersModel);
+    ctxt->setContextProperty("accountsFoldersModel", mAccountsFoldersModel);
 }
 
 QString MainView::getSourcePath() const

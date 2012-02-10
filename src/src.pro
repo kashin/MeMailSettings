@@ -26,6 +26,7 @@ HEADERS += mainview.h \
 
 qml_files.files += ../qml/MeMailSettings/main.qml \
                    ../qml/MeMailSettings/AboutDialog.qml \
+                   ../qml/MeMailSettings/AccountsListHeader.qml \
                    ../qml/MeMailSettings/AccountsListView.qml \
                    ../qml/MeMailSettings/AccountsItem.qml \
                    ../qml/MeMailSettings/AccountsPage.qml \

@@ -6,7 +6,7 @@ import com.nokia.extras 1.0
 ListView {
     id: settingsList
     property int accountId: 0
-
+    snapMode: ListView.SnapToItem
     function setAccountId(id)
     {
         accountId = id;
@@ -31,7 +31,6 @@ ListView {
     }
 
     header: Label {
-        id: settingsListLabel
         anchors.bottomMargin: 10
         text: "Settings list."
         font.pixelSize: 35

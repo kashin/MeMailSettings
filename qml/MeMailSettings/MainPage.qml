@@ -6,6 +6,15 @@ Page {
     id: mainPage
     tools: mainTools
 
+    Label {
+        text: qsTr("Welcome to MeMailSettings")
+        font.pixelSize: 30
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            bottom: buttonsColumn.top
+        }
+    }
+
     ButtonColumn {
         id: buttonsColumn
         anchors {

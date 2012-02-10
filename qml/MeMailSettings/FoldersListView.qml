@@ -22,7 +22,7 @@ ListView {
             }
             Image {
                 id: separator
-                anchors.top: accountsListLabel.bottom
+                anchors.top: foldersListLabel.bottom
                 anchors.topMargin: 8
                 anchors {
                     right: parent.right
@@ -33,13 +33,28 @@ ListView {
         }
     }
 
+    SelectionDialog {
+        id: selectionDialog
+        function setAccountId(accountId)
+        {
+            accountsFoldersModel.setAccountId(accountId)
+        }
+
+        model: accountsFoldersModel
+    }
+
     header: headerComponent
 
     model: foldersModel
     delegate: FoldersItem {
+        onItemClicked: {
+            selectionDialog.titleText = foldersModel.getStandardFolderName(stFolder)
+            selectionDialog.open()
+        }
     }
 
     onSelectedIdChanged: {
-        foldersModel.setAccountId(accountsId)
+        foldersModel.setAccountId(selectedId)
+        selectionDialog.setAccountId(selectedId)
     }
 }

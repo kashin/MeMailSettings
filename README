@@ -1,0 +1,11 @@
+Small hacks description:
+1) "how to sync all emails from my MfE account". Here is the answer:
+All you need to do is to set the MfE account's setting "email/past_time" as 0 (and click "save setting" btn after that of course :-D ).
+
+2) And about downloading full message's MIME. MfE accounts have 2 settings: "email_mime" and "email/email_mime". If you want to enable it then change both settings to "TRUE".
+
+WARNING and NOTE:
+1) The first 'hack' might confuse you a bit, because after that you will see sync back mails option as "3 days" value in the accounts application (plus it might overwrite this setting in the DB, so it's better to not save it at all (or even not open mail account settings)).
+2) This application (MeMailSettings) is made by my self and it is not the Nokia app.
+3) If you will change something to an invalid value your account(s) can become "wild" and do something nasty, so please be careful and change anything only on your own risk.
+!!!!THIS IS NOT SOMETHING RECOMMENDED TO DO. DO IT IF YOU KNOW WHAT YOU ARE DOING. DO IT ON YOUR OWN RISK !!!!!!
