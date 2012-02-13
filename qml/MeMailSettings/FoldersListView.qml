@@ -35,12 +35,16 @@ ListView {
 
     SelectionDialog {
         id: selectionDialog
+        property int folderType: 0
         function setAccountId(accountId)
         {
             accountsFoldersModel.setAccountId(accountId)
         }
 
         model: accountsFoldersModel
+        onAccepted: {
+            accountsFoldersModel.saveStandardFolder(folderType, accountsFoldersModel.getFolderIdByIndex(selectedIndex))
+        }
     }
 
     header: headerComponent
@@ -48,6 +52,7 @@ ListView {
     model: foldersModel
     delegate: FoldersItem {
         onItemClicked: {
+            selectionDialog.folderType = stFolder
             selectionDialog.titleText = foldersModel.getStandardFolderName(stFolder)
             selectionDialog.open()
         }
