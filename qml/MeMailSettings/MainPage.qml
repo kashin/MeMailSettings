@@ -7,7 +7,7 @@ Page {
     tools: mainTools
 
     Label {
-        text: qsTr("Welcome to MeMailSettings")
+        text: qsTr("Welcome to the MeMailSettings")
         font.pixelSize: 30
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -36,10 +36,11 @@ Page {
                 pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { showSettings: false })
             }
         }
-        Button {
-            id: makeGoodButton
-            text: qsTr("Make Good!")
-        }
+        // TODO: add the 'automatic hacks enabler' button
+//        Button {
+//            id: makeGoodButton
+//            text: qsTr("Make Good!")
+//        }
     }
 
     ToolBarLayout {

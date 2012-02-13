@@ -1,3 +1,9 @@
+memailsettings (0.0.5) unstable; urgency=low
+
+  * Folder's mapping implemented.
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Mon, 13 Feb 2012 10:29:00 +0400
+
 memailsettings (0.0.4) unstable; urgency=low
 
   * Implemented save all settings by one click. Settngs are group now.
