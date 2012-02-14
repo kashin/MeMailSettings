@@ -8,16 +8,34 @@ Page {
 
     Label {
         text: qsTr("Welcome to the MeMailSettings")
-        font.pixelSize: 30
+        font.pixelSize: 45
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        horizontalAlignment: Text.AlignHCenter
         anchors {
             horizontalCenter: parent.horizontalCenter
+            left: parent.left
+            right: parent.right
             bottom: buttonsColumn.top
+            bottomMargin: 40
         }
     }
 
+    onStatusChanged: { if (status == PageStatus.Activating) buttonsColumn.checkedButton = null }
+
     ButtonColumn {
+
+        style: ButtonStyle {
+            fontPixelSize: 40
+            buttonWidth: mainPage.width
+            buttonHeight: 80
+            inverted: true
+        }
         id: buttonsColumn
         anchors {
+            right: parent.right
+            left: parent.left
+            leftMargin: 40
+            rightMargin: 40
             horizontalCenter: parent.horizontalCenter
             verticalCenter: parent.verticalCenter
         }
