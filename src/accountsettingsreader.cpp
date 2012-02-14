@@ -157,7 +157,8 @@ void AccountSettingsReader::saveAccountsSetting(const Accounts::AccountId &id, c
             acc->valueAsString(key, QString(), &source);
             if (source != Accounts::NONE)
             {
-                if (QString::compare(value.toString(), QString("true"), Qt::CaseInsensitive) == 0)
+                if ((QString::compare(value.toString(), QString("true"), Qt::CaseInsensitive) == 0) ||
+                    (QString::compare(value.toString(), QString("false"), Qt::CaseInsensitive) == 0))
                     acc->setValue(key, value.toBool());
                 else
                     acc->setValue(key, value);
