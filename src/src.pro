@@ -39,8 +39,12 @@ qml_files.files += ../qml/MeMailSettings/main.qml \
                    ../qml/MeMailSettings/MainMenu.qml \
                    ../qml/MeMailSettings/MainPage.qml \
                    ../qml/MeMailSettings/SettingsPageMenu.qml \
-                   ../qml/MeMailSettings/SectionHeaderItem.qml
+                   ../qml/MeMailSettings/SectionHeaderItem.qml \
+                   ../qml/MeMailSettings/AbstractItem.qml
 
 qml_files.path = $$INSTALL_QML_ROOT
 
 INSTALLS += qml_files
+
+OTHER_FILES += \
+

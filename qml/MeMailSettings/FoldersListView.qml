@@ -10,7 +10,7 @@ ListView {
         id: headerComponent
         Item{
             width: parent.width
-            height: childrenRect.height
+            height: childrenRect.height + foldersListLabel.anchors.topMargin + separator.anchors.topMargin
             Label {
                 id: foldersListLabel
                 anchors.top: parent.top
@@ -47,7 +47,8 @@ ListView {
         }
     }
 
-    header: headerComponent
+    header: AccountsListHeader {
+    }
 
     model: foldersModel
     delegate: FoldersItem {
