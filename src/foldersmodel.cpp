@@ -214,15 +214,6 @@ void AccountsFoldersModel::setAccountId(const int accountId)
     initModel();
 }
 
-int AccountsFoldersModel::getFolderIdByIndex(int index) const
-{
-    if ((index >= 0) && (index < mFolders.count())) {
-        return mFolders.at(index).toULongLong();
-    }
-    qWarning() << Q_FUNC_INFO << "there is no" << index << "index in the folders list";
-    return -1;
-}
-
 void AccountsFoldersModel::saveStandardFolder(int folderType, int folderId)
 {
     QMailAccountId accountId(mAccountId);
