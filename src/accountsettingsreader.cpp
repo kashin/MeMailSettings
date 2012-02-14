@@ -157,7 +157,10 @@ void AccountSettingsReader::saveAccountsSetting(const Accounts::AccountId &id, c
             acc->valueAsString(key, QString(), &source);
             if (source != Accounts::NONE)
             {
-                acc->setValue(key, value);
+                if (QString::compare(value.toString(), QString("true"), Qt::CaseInsensitive) == 0)
+                    acc->setValue(key, value.toBool());
+                else
+                    acc->setValue(key, value);
                 acc->syncAndBlock();
                 delete acc;
                 return;
