@@ -40,6 +40,9 @@ ListView {
         {
             accountsFoldersModel.setAccountId(accountId)
         }
+        onFolderTypeChanged: {
+                selectionDialog.selectedIndex = accountsFoldersModel.getIndexOfStandartFolder(folderType)
+        }
 
         model: accountsFoldersModel
         onAccepted: {

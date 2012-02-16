@@ -14,6 +14,7 @@ class FolderItem : public QObject
 public:
     explicit FolderItem(const QMailFolder::StandardFolder& standardFolder, const QMailFolder& mailFolder, QObject *parent = 0);
 
+    QMailFolderId getFolderId() const;
     QString getDisplayName() const;
     QString getStandardFolderName() const { return mStandardFolderName; }
 
@@ -56,11 +57,15 @@ public:
 private:
     void initModel();
     int getStandardFolderByIndex(const QModelIndex& index) const;
+    QModelIndex getIndexByStandartFolder(const QMailFolder::StandardFolder& stdFolder) const;
 
 private:
     int mAccountId;
     QList<QMailFolder::StandardFolder> mStandardFoldersEnum;
     QHash<QMailFolder::StandardFolder, FolderItem*> mStandardFolders;
+
+private slots:
+    void onAccountsUpdated(const QMailAccountIdList &);
 };
 
 //----------------------------------------------------------------------------------------------------------
@@ -81,6 +86,7 @@ public:
     Q_INVOKABLE void setAccountId(const int accountId);
     Q_INVOKABLE int count() { return rowCount(); }
     Q_INVOKABLE int getFolderIdByIndex(int index) const;
+    Q_INVOKABLE int getIndexOfStandartFolder(int folderType) const;
     Q_INVOKABLE void saveStandardFolder(int folderType, int folderId);
 
     virtual QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const;

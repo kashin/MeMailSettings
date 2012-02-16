@@ -11,6 +11,11 @@ FolderItem::FolderItem(const QMailFolder::StandardFolder &standardFolder, const 
     initItem();
 }
 
+QMailFolderId FolderItem::getFolderId() const
+{
+    return mFolder.id();
+}
+
 void FolderItem::initItem()
 {
     switch(mStandardFolder)
@@ -73,6 +78,9 @@ FoldersModel::FoldersModel(QObject *parent)
 
 void FoldersModel::initModel()
 {
+    connect (QMailStore::instance(), SIGNAL(accountsUpdated(const QMailAccountIdList&)),
+                      this, SLOT (onAccountsUpdated(const QMailAccountIdList&)));
+
     mStandardFolders.clear();
     QMailAccountId accountId(mAccountId);
     if (accountId.isValid())
@@ -88,6 +96,38 @@ void FoldersModel::initModel()
     }
 
     reset();
+}
+
+void FoldersModel::onAccountsUpdated(const QMailAccountIdList & ids)
+{
+    QMailAccountId accountId(mAccountId);
+
+    if (!accountId.isValid())
+    {
+        return;
+    }
+
+    if (ids.contains(accountId))
+    {
+        QMailAccount account(accountId);
+        QList<QModelIndex> changedIndexes;
+        foreach (const QMailFolder::StandardFolder& stFolder, mStandardFoldersEnum)
+        {
+            const QMailFolderId& standardFolderId = account.standardFolder(stFolder);
+
+            if (standardFolderId != mStandardFolders.value(stFolder)->getFolderId())
+            {
+                QMailFolder folder(standardFolderId);
+                FolderItem* item = new FolderItem(stFolder, folder, this);
+                mStandardFolders.insert(stFolder, item);
+
+                changedIndexes.append(getIndexByStandartFolder(stFolder));
+            }
+        }
+
+        foreach (const QModelIndex& index, changedIndexes)
+            emit dataChanged(index,index);
+    }
 }
 
 void FoldersModel::setAccountId(const int accountId)
@@ -115,6 +155,12 @@ int FoldersModel::getStandardFolderByIndex(const QModelIndex& index) const
     qWarning() << Q_FUNC_INFO << "there is no " << row << "row in the folders list";
     return -1;
 }
+
+QModelIndex FoldersModel::getIndexByStandartFolder(const QMailFolder::StandardFolder& stdFolder) const
+{
+    return index(mStandardFoldersEnum.indexOf(stdFolder),0);
+}
+
 
 QModelIndex FoldersModel::index(int row, int column, const QModelIndex &parent) const
 {
@@ -221,6 +267,21 @@ int AccountsFoldersModel::getFolderIdByIndex(int index) const
     }
     qWarning() << Q_FUNC_INFO << "there is no" << index << "index in the folders list";
     return -1;
+}
+
+int AccountsFoldersModel::getIndexOfStandartFolder(int folderType) const
+{
+    QMailAccountId accountId(mAccountId);
+    if (!accountId.isValid())
+    {
+        qWarning() << Q_FUNC_INFO << accountId.toULongLong() << "account is invalid!";
+        return -1;
+    }
+    QMailAccount account(accountId);
+
+    QMailFolderId folderId = account.standardFolder(QMailFolder::StandardFolder(folderType));
+
+    return mFolders.indexOf(folderId);
 }
 
 void AccountsFoldersModel::saveStandardFolder(int folderType, int folderId)
