@@ -11,7 +11,9 @@ AbstractItem {
     itemLeftMargin: 15
     itemRightMargin: 15
 
-    leftIconSource: ""
+    leftIconSource: model.iconForStandartFolderRole
+    leftIconHeight: 64
+    leftIconWidth: 64
 
     titleText: model.standardNameRole
     subtitleText: model.bindedFolderNameRole

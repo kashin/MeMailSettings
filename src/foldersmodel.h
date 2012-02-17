@@ -17,6 +17,7 @@ public:
     QMailFolderId getFolderId() const;
     QString getDisplayName() const;
     QString getStandardFolderName() const { return mStandardFolderName; }
+    QString getIconForFolder() const { return mIconForFolder; }
 
 private:
     void initItem();
@@ -25,6 +26,7 @@ private:
     QMailFolder::StandardFolder mStandardFolder;
     QMailFolder mFolder;
     QString mStandardFolderName;
+    QString mIconForFolder;
 };
 
 //----------------------------------------------------------------------------------------------------------
@@ -38,7 +40,8 @@ public:
     {
         standardNameRole = Qt::UserRole + 1,
         bindedFolderNameRole,
-        standardFolderRole
+        standardFolderRole,
+        iconForStandartFolderRole
     };
 
     explicit FoldersModel(QObject *parent = 0);
