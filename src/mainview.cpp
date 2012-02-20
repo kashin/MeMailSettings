@@ -9,7 +9,7 @@
 
 static const char* organization = "MeMailSettings";
 static const char* application = "memailsettings";
-static const char* defaultQmlPath = "/opt/MeMailSettings/qml/main.qml";
+static const char* defaultQmlPath = "/usr/share/memailsettings/memailsettings.qml";
 
 MainView::MainView(QDeclarativeView *parent) :
     QDeclarativeView(parent)

@@ -5,5 +5,5 @@ files
 *.substvars
 stamp-makefile-*
 
-MeMailSettings
-MeMailSettings-dbg
+memailsettings
+memailsettings-dbg

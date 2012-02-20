@@ -1,3 +1,12 @@
+memailsettings (0.0.7) unstable; urgency=low
+
+  * Changes in UI for mapping folder
+  * Changes in UI for main page
+  * Added updating ui in folder view after updating account
+  * Add icon for application
+
+ -- Anton Magaev <anton.magaev@gmail.com>  Mon, 20 Feb 2012 14:58:12 +0400
+
 memailsettings (0.0.6) unstable; urgency=low
 
   * Workaround to fix bug with saving of some boolean values like

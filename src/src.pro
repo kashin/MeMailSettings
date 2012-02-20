@@ -1,15 +1,20 @@
 TEMPLATE = app
-QT += core gui declarative
-TARGET = memailsettings
-
-target.path = $$INSTALL_ROOT/bin
-
-INSTALLS += target
+QT += declarative
+CONFIG += meegotouch
+TARGET = "memailsettings"
+DEPENDPATH += .
+INCLUDEPATH += .
 
 CONFIG += link_pkgconfig
 PKGCONFIG += qmfclient accounts-qt aegis-certman
 
 QMAKE_CXXFLAGS *= -Werror \ #yes, I don't like warnings :)
+
+HEADERS += mainview.h \
+           accountsettingsreader.h \
+           accountslistmodel.h \
+           settingslistmodel.h \
+           foldersmodel.h
 
 SOURCES += main.cpp \
            mainview.cpp \
@@ -18,42 +23,45 @@ SOURCES += main.cpp \
            settingslistmodel.cpp \
            foldersmodel.cpp
 
-HEADERS += mainview.h \
-           accountsettingsreader.h \
-           accountslistmodel.h \
-           settingslistmodel.h \
-           foldersmodel.h
+  unix {
+    #VARIABLES
+    isEmpty(PREFIX) {
+        PREFIX = /usr
+  }
+BINDIR = $$PREFIX/bin
+DATADIR =$$PREFIX/share
 
-qml_files.files += ../qml/MeMailSettings/main.qml \
-                   ../qml/MeMailSettings/AboutDialog.qml \
-                   ../qml/MeMailSettings/AccountsListHeader.qml \
-                   ../qml/MeMailSettings/AccountsListView.qml \
-                   ../qml/MeMailSettings/AccountsItem.qml \
-                   ../qml/MeMailSettings/AccountsPage.qml \
-                   ../qml/MeMailSettings/FoldersItem.qml \
-                   ../qml/MeMailSettings/FoldersListPage.qml \
-                   ../qml/MeMailSettings/FoldersListView.qml \
-                   ../qml/MeMailSettings/SettingsListPage.qml \
-                   ../qml/MeMailSettings/SettingsListView.qml \
-                   ../qml/MeMailSettings/SettingsItem.qml \
-                   ../qml/MeMailSettings/MainMenu.qml \
-                   ../qml/MeMailSettings/MainPage.qml \
-                   ../qml/MeMailSettings/SettingsPageMenu.qml \
-                   ../qml/MeMailSettings/SectionHeaderItem.qml \
-                   ../qml/MeMailSettings/AbstractItem.qml
+DEFINES += DATADIR=\\\"$$DATADIR\\\" PKGDATADIR=\\\"$$PKGDATADIR\\\"
 
-qml_files.path = $$INSTALL_QML_ROOT
+INSTALLS += target qmlgui desktop icon80
 
-icon.files = ../email-settings-inverted.png
+  target.path =$$BINDIR
 
-icon.path = /usr/share/icons/hicolor/80x80/apps/
+  qmlgui.path = $$DATADIR/$${TARGET}
+  qmlgui.files += qml/memailsettings.qml \
+                  qml/AboutDialog.qml \
+                  qml/AccountsListHeader.qml \
+                  qml/AccountsListView.qml \
+                  qml/AccountsItem.qml \
+                  qml/AccountsPage.qml \
+                  qml/FoldersItem.qml \
+                  qml/FoldersListPage.qml \
+                  qml/FoldersListView.qml \
+                  qml/SettingsListPage.qml \
+                  qml/SettingsListView.qml \
+                  qml/SettingsItem.qml \
+                  qml/MainMenu.qml \
+                  qml/MainPage.qml \
+                  qml/SettingsPageMenu.qml \
+                  qml/SectionHeaderItem.qml \
+                  qml/AbstractItem.qml
 
-INSTALLS += icon
+  desktop.path = $$DATADIR/applications
+  desktop.files += ../resources/$${TARGET}.desktop
 
-INSTALLS += qml_files
-
-OTHER_FILES += \
-
-RESOURCES += \
-    resources.qrc
-
+  icon80.path = $$DATADIR/icons/hicolor/80x80/apps
+  icon80.files += ../resources/$${TARGET}.png
+  
+  RESOURCES += \
+    resources.qrc  
+}

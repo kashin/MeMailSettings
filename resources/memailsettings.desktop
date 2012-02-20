@@ -1,11 +1,13 @@
+
 [Desktop Entry]
 Encoding=UTF-8
-Version=0.1
+Version=0.0.6
 Type=Application
 Name=MeMailSettings
 Exec=/usr/bin/single-instance /usr/bin/memailsettings
 Categories=Email;
-Icon=/usr/share/icons/hicolor/80x80/apps/email-settings-inverted.png
+Icon=/usr/share/icons/hicolor/80x80/apps/memailsettings.png
 #X-Window-Icon=
 #X-HildonDesk-ShowInToolbar=true
 #X-Osso-Type=application/x-executable
+Name[en_GB]=memailsettings

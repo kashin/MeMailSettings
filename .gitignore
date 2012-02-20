@@ -1,5 +1,8 @@
 *.o
 moc_*.cpp
+qrc_*.cpp
 Makefile
 memailsettings
-MeMailSettings*.user
+memailsettings*.user
+build-stamp
+configure-stamp
