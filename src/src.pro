@@ -44,7 +44,16 @@ qml_files.files += ../qml/MeMailSettings/main.qml \
 
 qml_files.path = $$INSTALL_QML_ROOT
 
+icon.files = ../email-settings-inverted.png
+
+icon.path = /usr/share/icons/hicolor/80x80/apps/
+
+INSTALLS += icon
+
 INSTALLS += qml_files
 
 OTHER_FILES += \
+
+RESOURCES += \
+    resources.qrc
 

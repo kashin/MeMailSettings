@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="icon-directory-draft">resources/icon-directory-draft.png</file>
+        <file alias="icon-directory-incoming">resources/icon-directory-incoming.png</file>
+        <file alias="icon-directory-outgoing">resources/icon-directory-outgoing.png</file>
+        <file alias="icon-directory-send">resources/icon-directory-send.png</file>
+        <file alias="icon-directory-spam">resources/icon-directory-spam.png</file>
+        <file alias="icon-directory-trash">resources/icon-directory-trash.png</file>
+    </qresource>
+</RCC>

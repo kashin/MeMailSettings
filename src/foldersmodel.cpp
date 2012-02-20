@@ -23,31 +23,31 @@ void FolderItem::initItem()
     case QMailFolder::InboxFolder:
     {
         mStandardFolderName = QString("Inbox");
-        mIconForFolder = QString("icon-m-email-directory-incoming");
+        mIconForFolder = QString("icon-directory-incoming");
         break;
     }
     case QMailFolder::DraftsFolder:
     {
         mStandardFolderName = QString("Drafts");
-        mIconForFolder = QString("icon-m-email-directory-draft");
+        mIconForFolder = QString("icon-directory-draft");
         break;
     }
     case QMailFolder::TrashFolder:
     {
         mStandardFolderName = QString("Trash");
-        mIconForFolder = QString("icon-m-email-directory-trash");
+        mIconForFolder = QString("icon-directory-trash");
         break;
     }
     case QMailFolder::SentFolder:
     {
         mStandardFolderName = QString("Sent Items");
-        mIconForFolder = QString("icon-m-email-directory-send");
+        mIconForFolder = QString("icon-directory-send");
         break;
     }
     case QMailFolder::JunkFolder:
     {
         mStandardFolderName = QString("Junk");
-        mIconForFolder = QString("icon-m-email-directory-spam");
+        mIconForFolder = QString("icon-directory-spam");
         break;
     }
     default:
@@ -234,7 +234,7 @@ QVariant FoldersModel::data(const QModelIndex &index, int role) const
     {
         if (mStandardFolders.contains(stFolder))
         {
-            return "qrc:/resources/" + mStandardFolders.value(stFolder)->getIconForFolder() + ".png";
+            return "qrc:/" + mStandardFolders.value(stFolder)->getIconForFolder();
         }
         qCritical() << Q_FUNC_INFO << "Ouch, something nasty is happened, there is no folder" << stFolder << " in Hash";
         return QVariant();
