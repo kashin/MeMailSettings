@@ -4,7 +4,7 @@ Encoding=UTF-8
 Version=0.0.6
 Type=Application
 Name=MeMailSettings
-Exec=/usr/bin/single-instance /usr/bin/memailsettings
+Exec=/usr/bin/invoker --single-instance --type=d /usr/bin/memailsettings
 Categories=Email;
 Icon=/usr/share/icons/hicolor/80x80/apps/memailsettings.png
 #X-Window-Icon=

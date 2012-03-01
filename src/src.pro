@@ -1,6 +1,7 @@
 TEMPLATE = app
 QT += declarative
-CONFIG += meegotouch
+CONFIG += qdeclarative-boostable
+
 TARGET = "memailsettings"
 DEPENDPATH += .
 INCLUDEPATH += .
@@ -8,7 +9,9 @@ INCLUDEPATH += .
 CONFIG += link_pkgconfig
 PKGCONFIG += qmfclient accounts-qt aegis-certman
 
-QMAKE_CXXFLAGS *= -Werror \ #yes, I don't like warnings :)
+QMAKE_CXXFLAGS += `pkg-config --cflags qdeclarative-boostable`
+QMAKE_LFLAGS += `pkg-config --libs qdeclarative-boostable`
+QMAKE_CXXFLAGS += -Werror \ #yes, I don't like warnings :)
 
 HEADERS += mainview.h \
            accountsettingsreader.h \

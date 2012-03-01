@@ -1,17 +1,28 @@
-#include <QtGui/QApplication>
+#include <QDeclarativeComponent>
+#include <QDeclarativeView>
+#include <QDeclarativeEngine>
+#include <QDeclarativeContext>
 #include <QMailStore>
+#include <QApplication>
+#include <MDeclarativeCache>
 #include "mainview.h"
 
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
+static QApplication *app;
 
-    MainView* view = new MainView();
+static QDeclarativeView *declView;
+
+Q_DECL_EXPORT int main(int argc, char *argv[])
+{
+    app = MDeclarativeCache::qApplication(argc, argv);
+
+    declView = MDeclarativeCache::qDeclarativeView();
+    declView->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
     Q_ASSERT(QMailStore::instance()); // Let's init Mail Store here.
 
-    view->setSource(QUrl::fromLocalFile(view->getSourcePath()));
-    view->showFullScreen();
+    MainView mainView(declView);
 
-    return app.exec();
+    mainView.showFullScreen();
+
+    return app->exec();
 }

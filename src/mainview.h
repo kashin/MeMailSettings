@@ -9,23 +9,22 @@ class SettingsListModel;
 class FoldersModel;
 class AccountsFoldersModel;
 
-class MainView : public QDeclarativeView
+class MainView : public QObject
 {
     Q_OBJECT
 public:
-    explicit MainView(QDeclarativeView *parent = 0);
+    explicit MainView(QDeclarativeView* view,QObject *parent = 0);
 
     QString getSourcePath() const;
+
+    void showFullScreen();
 
 signals:
 
 public slots:
 
 private:
-    QSettings* createSettings();
-
-private:
-    QSettings* mSettings;
+    QDeclarativeView* mView;
     AccountsListModel* mAccountsModel;
     SettingsListModel* mSettingsModel;
     FoldersModel* mFoldersModel;
