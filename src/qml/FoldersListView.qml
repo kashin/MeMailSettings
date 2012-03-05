@@ -46,7 +46,7 @@ ListView {
 
         model: accountsFoldersModel
         onAccepted: {
-            accountsFoldersModel.saveStandardFolder(folderType, accountsFoldersModel.getFolderIdByIndex(selectedIndex))
+            accountsFoldersModel.saveStandardFolder(folderType, selectedIndex)
         }
     }
 

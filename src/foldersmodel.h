@@ -88,7 +88,6 @@ public:
 
     Q_INVOKABLE void setAccountId(const int accountId);
     Q_INVOKABLE int count() { return rowCount(); }
-    Q_INVOKABLE int getFolderIdByIndex(int index) const;
     Q_INVOKABLE int getIndexOfStandartFolder(int folderType) const;
     Q_INVOKABLE void saveStandardFolder(int folderType, int folderId);
 
