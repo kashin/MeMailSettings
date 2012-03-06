@@ -4,7 +4,6 @@ import com.nokia.meego 1.0
 ListView {
     id: accountsListView
     anchors.fill: parent
-    property bool editSettingsMode: true
 
     header: AccountsListHeader {
     }

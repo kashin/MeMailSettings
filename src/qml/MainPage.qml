@@ -44,21 +44,23 @@ Page {
             id: settingsButton
             text: qsTr("Edit Settings")
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { showSettings: true })
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "SettingsListPage.qml" })
             }
         }
         Button {
             id: foldersButton
             text: qsTr("Edit Folders")
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { showSettings: false })
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "FoldersListPage.qml" })
             }
         }
-        // TODO: add the 'automatic hacks enabler' button
-//        Button {
-//            id: makeGoodButton
-//            text: qsTr("Make Good!")
-//        }
+        Button {
+            id: makeGoodButton
+            text: qsTr("Easy Tweak")
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" })
+            }
+        }
     }
 
     ToolBarLayout {

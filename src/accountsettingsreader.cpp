@@ -175,6 +175,26 @@ void AccountSettingsReader::saveAccountsSetting(const Accounts::AccountId &id, c
     return;
 }
 
+bool AccountSettingsReader::isMfeAccount(const Accounts::AccountId &id)
+{
+    Account *acc = mAccountsManager->account(id);
+    if (acc)
+    {
+        if (acc->providerName() == QString("mfe"))
+        {
+            qDebug() << "Account" << id << "is an MfE account.";
+            return true;
+        }
+        else
+        {
+            qDebug() << "Account" << id << "is not an MfE account.";
+            return false;
+        }
+    }
+    qWarning() << Q_FUNC_INFO << "account" << id << "not found";
+    return false;
+}
+
 void AccountSettingsReader::onSaveAccountSettings(const int &id,
                                                   const QStringList &keys,
                                                   QVariantList values)

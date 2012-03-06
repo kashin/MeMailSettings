@@ -2,6 +2,7 @@
 #include <QDeclarativeContext>
 
 #include "accountslistmodel.h"
+#include "easytweakmodel.h"
 #include "settingslistmodel.h"
 #include "foldersmodel.h"
 #include "mainview.h"
@@ -16,6 +17,7 @@ MainView::MainView(QDeclarativeView* view, QObject *parent) :
     }
     mView = view;
     mAccountsModel = new AccountsListModel(this);
+    mEasyTweakModel = new EasyTweakModel(this);
     mSettingsModel = new SettingsListModel(this);
     mFoldersModel = new FoldersModel(this);
     mAccountsFoldersModel = new AccountsFoldersModel(this);
@@ -24,6 +26,7 @@ MainView::MainView(QDeclarativeView* view, QObject *parent) :
 
     QDeclarativeContext *ctxt = mView->rootContext();
     ctxt->setContextProperty("accountsModel", mAccountsModel);
+    ctxt->setContextProperty("easyTweakModel", mEasyTweakModel);
     ctxt->setContextProperty("settingsModel", mSettingsModel);
     ctxt->setContextProperty("foldersModel", mFoldersModel);
     ctxt->setContextProperty("accountsFoldersModel", mAccountsFoldersModel);

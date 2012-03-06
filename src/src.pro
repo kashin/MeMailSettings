@@ -17,14 +17,16 @@ HEADERS += mainview.h \
            accountsettingsreader.h \
            accountslistmodel.h \
            settingslistmodel.h \
-           foldersmodel.h
+           foldersmodel.h \
+           easytweakmodel.h
 
 SOURCES += main.cpp \
            mainview.cpp \
            accountsettingsreader.cpp \
            accountslistmodel.cpp \
            settingslistmodel.cpp \
-           foldersmodel.cpp
+           foldersmodel.cpp \
+           easytweakmodel.cpp
 
   unix {
     #VARIABLES
@@ -57,7 +59,10 @@ INSTALLS += target qmlgui desktop icon80
                   qml/MainPage.qml \
                   qml/SettingsPageMenu.qml \
                   qml/SectionHeaderItem.qml \
-                  qml/AbstractItem.qml
+                  qml/AbstractItem.qml \
+                  qml/EasyTweakPage.qml \
+                  qml/EasyTweakList.qml \
+                  qml/EasyTweakItem.qml
 
   desktop.path = $$DATADIR/applications
   desktop.files += ../resources/$${TARGET}.desktop

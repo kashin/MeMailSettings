@@ -26,6 +26,8 @@ public:
    const Accounts::ServiceList getAccountsServices(const Accounts::AccountId& id) const;
    void saveAccountsSetting(const Accounts::AccountId& id,
                             const QString& key, const QVariant& value);
+   bool isMfeAccount(const Accounts::AccountId& id);
+
 signals:
    void settingsSaved();
 

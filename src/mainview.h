@@ -5,9 +5,10 @@
 
 class QSettings;
 class AccountsListModel;
+class AccountsFoldersModel;
+class EasyTweakModel;
 class SettingsListModel;
 class FoldersModel;
-class AccountsFoldersModel;
 
 class MainView : public QObject
 {
@@ -26,6 +27,7 @@ public slots:
 private:
     QDeclarativeView* mView;
     AccountsListModel* mAccountsModel;
+    EasyTweakModel* mEasyTweakModel;
     SettingsListModel* mSettingsModel;
     FoldersModel* mFoldersModel;
     AccountsFoldersModel* mAccountsFoldersModel;
