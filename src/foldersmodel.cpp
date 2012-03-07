@@ -290,7 +290,7 @@ int AccountsFoldersModel::getIndexOfStandartFolder(int folderType) const
     return mFolders.indexOf(folderId);
 }
 
-void AccountsFoldersModel::saveStandardFolder(int folderType, int folderId)
+void AccountsFoldersModel::saveStandardFolder(int folderType, int folderIndex)
 {
     QMailAccountId accountId(mAccountId);
     if (!accountId.isValid())
@@ -298,18 +298,26 @@ void AccountsFoldersModel::saveStandardFolder(int folderType, int folderId)
         qWarning() << Q_FUNC_INFO << accountId.toULongLong() << "account is invalid!";
         return;
     }
+
     QMailAccount account(accountId);
-    QMailFolderId fId(folderId);
-    if (fId.isValid())
+    if ( (folderIndex >= 0) && (folderIndex < mFolders.count()))
     {
-        account.setStandardFolder(QMailFolder::StandardFolder(folderType), fId);
-        if (!QMailStore::instance()->updateAccount(&account))
+        QMailFolderId fId(mFolders.at(folderIndex));
+        if (fId.isValid())
         {
-            qWarning() << Q_FUNC_INFO << "unable to update account";
+            account.setStandardFolder(QMailFolder::StandardFolder(folderType), fId);
+            if (!QMailStore::instance()->updateAccount(&account))
+            {
+                qWarning() << Q_FUNC_INFO << "unable to update account";
+            }
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "ouch, it seems that folder id is invalid";
         }
     }
     else
-        qWarning() << Q_FUNC_INFO << "ouch, it seems that folder id is invalid!";
+        qWarning() << Q_FUNC_INFO << "ouch, it seems that folder index is invalid!";
 }
 
 QMailFolderId AccountsFoldersModel::getIdFromIndex(const QModelIndex &index) const

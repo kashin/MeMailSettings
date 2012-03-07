@@ -41,6 +41,13 @@ Page {
         }
 
         Button {
+            id: makeGoodButton
+            text: qsTr("Easy Tweak Mode")
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" })
+            }
+        }
+        Button {
             id: settingsButton
             text: qsTr("Edit Settings")
             onClicked: {
@@ -52,13 +59,6 @@ Page {
             text: qsTr("Edit Folders")
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "FoldersListPage.qml" })
-            }
-        }
-        Button {
-            id: makeGoodButton
-            text: qsTr("Easy Tweak")
-            onClicked: {
-                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" })
             }
         }
     }

@@ -101,15 +101,17 @@ void EasyTweakModel::saveBoolSetting(const int index, const bool checked)
                 mSettingsReader->saveAccountsSetting(mAccountId,
                                                      QString("email/past_time"),
                                                      checked ? 0 : 3);
+                break;
             }
         case EasyTweakSetting::mime:
             {
-            mSettingsReader->saveAccountsSetting(mAccountId,
+                mSettingsReader->saveAccountsSetting(mAccountId,
                                                  QString("email/email_mime"),
                                                  checked ? true : false);
-            mSettingsReader->saveAccountsSetting(mAccountId,
+                mSettingsReader->saveAccountsSetting(mAccountId,
                                                  QString("email_mime"),
                                                  checked ? true : false);
+                break;
             }
         }
     }

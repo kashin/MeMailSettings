@@ -50,8 +50,7 @@ ListView {
         }
     }
 
-    header: AccountsListHeader {
-    }
+    header: headerComponent
 
     model: foldersModel
     delegate: FoldersItem {
