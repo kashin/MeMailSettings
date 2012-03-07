@@ -1,3 +1,11 @@
+memailsettings (0.0.8) unstable; urgency=low
+
+  * Fixed bug in folder's mapping: selected index from selection
+    dialog should be an index in folder's list. 
+  * Fixed bug with easy tweak mode: missed break in case's state.
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Wed, 07 Mar 2012 12:02:49 +0400
+
 memailsettings (0.0.7) unstable; urgency=low
 
   * Changes in UI for mapping folder
