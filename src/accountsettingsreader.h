@@ -26,6 +26,10 @@ public:
    const Accounts::ServiceList getAccountsServices(const Accounts::AccountId& id) const;
    void saveAccountsSetting(const Accounts::AccountId& id,
                             const QString& key, const QVariant& value);
+   void removeGlobalSetting(const Accounts::AccountId& id,
+                            const QString& key);
+   void removeEmailSetting(const Accounts::AccountId& id,
+                           const QString& key);
    bool isMfeAccount(const Accounts::AccountId& id);
 
 signals:
