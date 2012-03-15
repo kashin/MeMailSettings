@@ -7,7 +7,7 @@
 #include "foldersmodel.h"
 #include "mainview.h"
 
-static const QString defaultQmlPath = "/usr/share/memailsettings/memailsettings.qml";
+static const QString defaultQmlPath = "/opt/memailsettings/memailsettings.qml";
 
 MainView::MainView(QDeclarativeView* view, QObject *parent) :
     QObject(parent)

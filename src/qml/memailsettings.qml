@@ -10,4 +10,7 @@ PageStackWindow {
     Component.onCompleted: {
         theme.inverted = true;
     }
+    onOrientationChangeFinished: {
+           showStatusBar = inPortrait;
+    }
 }
