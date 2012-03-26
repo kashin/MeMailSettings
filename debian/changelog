@@ -1,3 +1,9 @@
+memailsettings (0.0.9) unstable; urgency=low
+
+  * First published version. Fixed small UI issues.
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Thu, 15 Mar 2012 16:43:00 +0400
+
 memailsettings (0.0.8) unstable; urgency=low
 
   * Fixed bug in folder's mapping: selected index from selection
