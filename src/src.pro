@@ -33,17 +33,16 @@ SOURCES += main.cpp \
     isEmpty(PREFIX) {
         PREFIX = /usr
   }
-BINDIR = $$PREFIX/bin
 DATADIR =$$PREFIX/share
-QMLDIR =/opt
+BINDIR =/opt
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\" PKGDATADIR=\\\"$$PKGDATADIR\\\"
 
 INSTALLS += target qmlgui desktop icon80
 
-  target.path =$$BINDIR
+  target.path =$$BINDIR/memailsettings/bin
 
-  qmlgui.path = $$QMLDIR/$${TARGET}
+  qmlgui.path = $$BINDIR/$${TARGET}/qml
   qmlgui.files += qml/memailsettings.qml \
                   qml/AboutDialog.qml \
                   qml/AccountsListHeader.qml \

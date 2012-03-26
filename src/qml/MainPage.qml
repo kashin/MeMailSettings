@@ -42,18 +42,11 @@ Page {
 
         Button {
             id: makeGoodButton
-            text: qsTr("Easy Tweak Mode")
+            text: qsTr("Email Settings")
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" })
             }
         }
-//        Button {
-//            id: settingsButton
-//            text: qsTr("Edit Settings")
-//            onClicked: {
-//                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "SettingsListPage.qml" })
-//            }
-//        }
         Button {
             id: foldersButton
             text: qsTr("Edit Folders")
