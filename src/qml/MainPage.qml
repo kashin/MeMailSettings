@@ -47,6 +47,20 @@ Page {
                 pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" })
             }
         }
+        //        Button {
+        //            id: settingsButton
+        //            text: qsTr("Edit Settings")
+        //            onClicked: {
+        //                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "SettingsListPage.qml" })
+        //            }
+        //        }
+        Button {
+            id: configSettingsButton
+            text: qsTr("Config Settings")
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "ConfigSettingsPage.qml" })
+            }
+        }
         Button {
             id: foldersButton
             text: qsTr("Edit Folders")

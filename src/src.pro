@@ -62,7 +62,8 @@ INSTALLS += target qmlgui desktop icon80
                   qml/AbstractItem.qml \
                   qml/EasyTweakPage.qml \
                   qml/EasyTweakList.qml \
-                  qml/EasyTweakItem.qml
+                  qml/EasyTweakItem.qml \
+                  qml/ConfigSettingsPage.qml
 
   desktop.path = $$DATADIR/applications
   desktop.files += ../resources/$${TARGET}.desktop
