@@ -13,10 +13,27 @@ AccountSettingsReader::AccountSettingsReader(QObject *parent)
 {
 }
 
-const AccountIdList AccountSettingsReader::getAccountsIds() const
+const AccountIdList AccountSettingsReader::getAccountsIds(const QString providerName) const
 {
     if (mAccountsManager)
-        return mAccountsManager->accountListEnabled("e-mail");
+    {
+        if (providerName.isEmpty())
+        {
+            return mAccountsManager->accountListEnabled("e-mail");
+        }
+        AccountIdList ids = mAccountsManager->accountListEnabled("e-mail");
+        AccountIdList resIds;
+        foreach(AccountId id, ids)
+        {
+            qDebug() << Q_FUNC_INFO << "Account=" << id;
+            if (getProviderName(id) == providerName)
+            {
+                qDebug() << Q_FUNC_INFO << "Account" << id << "is" << providerName << "account";
+                resIds << id;
+            }
+        }
+        return resIds;
+    }
     qCritical() << Q_FUNC_INFO << "something nasty is happened, accounts manager is NULL!";
     return AccountIdList();
 }

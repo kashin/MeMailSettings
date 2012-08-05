@@ -5,6 +5,7 @@ QueryDialog {
     id: aboutDialog
     message: "MeMail Settings. Version 0.0.9\n \
     Author(s): Sergey Kashin, Anton Magaev\n \
-    Sources are available here: https://github.com/kashin/MeMailSettings"
+    Sources are available here:\n \
+    github.com/kashin/MeMailSettings"
     acceptButtonText: "Ok"
 }

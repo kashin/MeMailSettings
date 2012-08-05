@@ -3,9 +3,10 @@
 
 AccountsListModel::AccountsListModel(QObject *parent)
     : QAbstractItemModel(parent),
-      mAccountSettingsReader(new AccountSettingsReader(this))
+      mAccountSettingsReader(new AccountSettingsReader(this)),
+      mShowOnlyMfE(false)
 {
-    mIds = mAccountSettingsReader->getAccountsIds();
+    initModel();
     QHash<int, QByteArray> roles;
     roles[iconSource] = "iconSource";
     roles[subtitle] = "subtitle";
@@ -62,6 +63,18 @@ QVariant AccountsListModel::data(const QModelIndex& index, int role) const
     }
 
     return QVariant();
+}
+
+void AccountsListModel::setShowOnlyMfE(bool show)
+{
+    mShowOnlyMfE = show;
+    initModel();
+    reset();
+}
+
+void AccountsListModel::initModel()
+{
+    mIds = mAccountSettingsReader->getAccountsIds(mShowOnlyMfE ? "mfe" : "");
 }
 
 Accounts::AccountId AccountsListModel::getIdFromIndex(const QModelIndex& index) const

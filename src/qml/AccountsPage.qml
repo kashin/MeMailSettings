@@ -5,6 +5,7 @@ Page {
     id: mainPage
     tools: mainTools
     property string nextPageName: "SettingsListPage.qml"
+    property bool showOnlyMfE: false
 
     signal accountClicked(int id)
 
@@ -28,7 +29,7 @@ Page {
             platformIconId: "toolbar-view-menu"
             anchors.right: (parent === undefined) ? undefined : parent.right
             onClicked: {
-                (accountsPageMenu.status == DialogStatus.Closed) ? accountsPageMenu.open() : accountsPageMenu.close()
+                (accountsPageMenu.status === DialogStatus.Closed) ? accountsPageMenu.open() : accountsPageMenu.close()
             }
         }
     }
@@ -44,5 +45,12 @@ Page {
 
     onAccountClicked: {
         pageStack.push(Qt.resolvedUrl(nextPageName), {accountId: id})
+    }
+
+    onShowOnlyMfEChanged: {
+        accountsList.showOnlyMfE = showOnlyMfE;
+    }
+    Component.onCompleted: {
+        accountsList.showOnlyMfE = showOnlyMfE;
     }
 }

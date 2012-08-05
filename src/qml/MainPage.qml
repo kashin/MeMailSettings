@@ -20,7 +20,7 @@ Page {
         }
     }
 
-    onStatusChanged: { if (status == PageStatus.Activating) buttonsColumn.checkedButton = null }
+    onStatusChanged: { if (status === PageStatus.Activating) buttonsColumn.checkedButton = null }
 
     ButtonColumn {
 
@@ -44,21 +44,21 @@ Page {
             id: makeGoodButton
             text: qsTr("Easy Tweak Mode")
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" })
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" , showOnlyMfE: true })
             }
         }
         Button {
             id: settingsButton
             text: qsTr("Edit Settings")
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "SettingsListPage.qml" })
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "SettingsListPage.qml" , showOnlyMfE: false })
             }
         }
         Button {
             id: foldersButton
             text: qsTr("Edit Folders")
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "FoldersListPage.qml" })
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "FoldersListPage.qml" , showOnlyMfE: false  })
             }
         }
     }
@@ -70,7 +70,7 @@ Page {
             platformIconId: "toolbar-view-menu"
             anchors.right: (parent === undefined) ? undefined : parent.right
             onClicked: {
-                (mainMenu.status == DialogStatus.Closed) ? mainMenu.open() : mainMenu.close()
+                (mainMenu.status === DialogStatus.Closed) ? mainMenu.open() : mainMenu.close()
             }
         }
     }

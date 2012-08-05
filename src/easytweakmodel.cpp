@@ -47,7 +47,7 @@ void EasyTweakModel::initModel()
                              setting);
             setting = new EasyTweakSetting(QString("Force EAS protocol version"),
                                            QString("use_version"),
-                                           EasyTweakSetting::stringSetting,
+                                           EasyTweakSetting::enumSetting,
                                            EasyTweakSetting::useVersion);
             mSettings.insert(EasyTweakSetting::useVersion,
                              setting);
@@ -138,6 +138,37 @@ void EasyTweakModel::saveBoolSetting(const int index, const bool checked)
             }
         default:
             break;
+        }
+    }
+}
+
+void EasyTweakModel::saveEnumSetting(const int index, const bool checked, const QVariant &value)
+{
+    if ( (index >= 0) && (index < mSettings.count()) )
+    {
+        const EasyTweakSetting* setting = mSettings.value(index);
+        switch(setting->getSetting())
+        {
+            case EasyTweakSetting::useVersion:
+                {
+                    if (checked)
+                    {
+                        mSettingsReader->saveAccountsSetting(mAccountId,
+                                             setting->getSettingKeyName(),
+                                                         value);
+                    }
+                    else
+                    {
+                        mSettingsReader->removeEmailSetting(mAccountId,
+                                             setting->getSettingKeyName());
+                    }
+                }
+            case EasyTweakSetting::syncBack:
+            case EasyTweakSetting::mime:
+                return;
+            default:
+                qDebug() << Q_FUNC_INFO << "wtf???";
+                return;
         }
     }
 }

@@ -41,6 +41,22 @@ Row {
         }
     }
 
+    DropDown {
+        id: settingDropDown
+        height: 40
+        anchors.top: switcher.bottom
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.topMargin: 30
+        anchors.bottomMargin: 30
+        anchors.horizontalCenter: parent.horizontalCenter
+        value: model.settingStringValue
+
+        onValueChanged: {
+            easyTweakItem.saveSetting()
+        }
+    }
+
     TextField {
         id: settingTextField
         anchors.top: mainText.bottom
@@ -74,6 +90,23 @@ Row {
             PropertyChanges { target: settingTextField; text: ""}
             PropertyChanges { target: saveSettingButton; height: -1}
             PropertyChanges { target: saveSettingButton; text: ""}
+            PropertyChanges { target: settingDropDown;  enabled: false }
+        },
+        State {
+            name: "DropDownStateEnabled"
+            PropertyChanges { target: settingTextField; height: -1}
+            PropertyChanges { target: settingTextField; text: ""}
+            PropertyChanges { target: saveSettingButton; height: -1}
+            PropertyChanges { target: saveSettingButton; text: ""}
+            PropertyChanges { target: settingDropDown; enabled: true }
+        },
+        State {
+            name: "DropDownStateDisabled"
+            PropertyChanges { target: settingTextField; height: -1}
+            PropertyChanges { target: settingTextField; text: ""}
+            PropertyChanges { target: saveSettingButton; height: -1}
+            PropertyChanges { target: saveSettingButton; text: ""}
+            PropertyChanges { target: settingDropDown;  enabled: false }
         },
         State {
             name: "StringStateEnabled"
@@ -81,6 +114,7 @@ Row {
             PropertyChanges { target: settingTextField; text: model.settingStringValue}
             PropertyChanges { target: saveSettingButton; height: 35}
             PropertyChanges { target: saveSettingButton; text: qsTr("Save Setting")}
+            PropertyChanges { target: settingDropDown; enabled: false}
         },
         State {
             name: "StringStateDisabled"
@@ -88,6 +122,7 @@ Row {
             PropertyChanges { target: settingTextField; text: model.settingStringValue}
             PropertyChanges { target: saveSettingButton; height: -1}
             PropertyChanges { target: saveSettingButton; text: ""}
+            PropertyChanges { target: settingDropDown; enabled: false}
         }
     ]
 
@@ -98,9 +133,43 @@ Row {
             easyTweakItem.itemClicked(settingsType, switcher.checked, "");
             easyTweakItem.state = "BooleanState";
         }
-        else if (model.tweakType === 1) //string setting
+        else if (model.tweakType === 1) //enum setting
+        {
+            if (settingDropDown.text === "No value" || settingDropDown.value === "") {
+                easyTweakItem.itemClicked(settingsType, switcher.checked, "");
+            } else {
+                easyTweakItem.itemClicked(settingsType, switcher.checked, settingDropDown.text);
+            }
+
+            if (switcher.checked) {
+                easyTweakItem.state = "DropDownStateEnabled";
+            } else {
+                easyTweakItem.state = "DropDownStateDisabled";
+            }
+        }
+        else if (model.tweakType === 2) //string setting
         {
             easyTweakItem.itemClicked(settingsType, switcher.checked, settingTextField.text);
+            easyTweakItem.state = switcher.checked ? "StringStateEnabled" : "StringStateDisabled";
+        }
+    }
+
+    Component.onCompleted: {
+        if (model.tweakType === 0) // boolean setting
+        {
+            easyTweakItem.state = "BooleanState";
+        }
+        else if (model.tweakType === 1) //enum setting
+        {
+            if (switcher.checked) {
+                easyTweakItem.state = "DropDownStateEnabled";
+            } else {
+                easyTweakItem.state = "DropDownStateDisabled";
+            }
+            settingDropDown.value = model.settingStringValue;
+        }
+        else if (model.tweakType === 2) //string setting
+        {
             easyTweakItem.state = switcher.checked ? "StringStateEnabled" : "StringStateDisabled";
         }
     }

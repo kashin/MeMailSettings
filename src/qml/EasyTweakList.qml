@@ -66,6 +66,11 @@ ListView {
             }
             if (tweakType === 1)
             {
+                easyTweakModel.saveEnumSetting(index, checked, value)
+                return;
+            }
+            if (tweakType === 2)
+            {
                 easyTweakModel.saveStringSetting(index, checked, value)
                 return;
             }

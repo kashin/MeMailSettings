@@ -1,3 +1,10 @@
+memailsettings (0.1.0) unstable; urgency=low
+
+  * Added 'force protocol version' functionality to fix hotmail issue.
+    EasyTweak Mode now shows only MfE accounts.
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Thu, 15 Mar 2012 16:12:01 +0200
+
 memailsettings (0.0.9) unstable; urgency=low
 
   * First published version. Fixed small UI issues.
