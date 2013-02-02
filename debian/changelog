@@ -1,3 +1,9 @@
+memailsettings (0.1.1) unstable; urgency=low
+
+  * Fixed fetch full MIME bug
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Sun, 03 Feb 2013 00:27:49 +0400
+
 memailsettings (0.1.0) unstable; urgency=low
 
   * Added 'force protocol version' functionality to fix hotmail issue.

@@ -40,7 +40,7 @@ void EasyTweakModel::initModel()
                              setting);
 
             setting = new EasyTweakSetting(QString("Fetch full message's MIME"),
-                                           QString("email/email_mime"),
+                                           QString("email_mime"),
                                            EasyTweakSetting::booleanSetting,
                                            EasyTweakSetting::mime);
             mSettings.insert(EasyTweakSetting::mime,
@@ -131,7 +131,7 @@ void EasyTweakModel::saveBoolSetting(const int index, const bool checked)
                 mSettingsReader->saveAccountsSetting(mAccountId,
                                                  setting->getSettingKeyName(),
                                                  checked ? true : false);
-                mSettingsReader->saveAccountsSetting(mAccountId,
+                mSettingsReader->saveAccountsSetting(mAccountId, QString("email/") +
                                                  setting->getSettingKeyName(),
                                                  checked ? true : false);
                 break;

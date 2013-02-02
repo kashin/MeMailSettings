@@ -7,6 +7,7 @@ Row {
     anchors.topMargin: 25
     anchors.bottomMargin: 25
     anchors.horizontalCenter: parent.horizontalCenter
+    height: 75
     state: "BooleanState"
 
     // properties
@@ -24,6 +25,8 @@ Row {
         anchors.left: parent.left
         anchors.leftMargin: 10
         anchors.rightMargin: 10
+        anchors.topMargin: 20
+        anchors.bottomMargin: 20
     }
 
     Switch {
@@ -32,6 +35,8 @@ Row {
         anchors.right: parent.right
         anchors.leftMargin: 10
         anchors.rightMargin: 10
+        anchors.topMargin: 20
+        anchors.bottomMargin: 20
         checked: model.settingValue
         onCheckedChanged: {
             // FIXME: This is a workaround, otherwhise
@@ -79,6 +84,14 @@ Row {
         onClicked: {
             easyTweakItem.saveSetting();
         }
+    }
+
+    Image {
+        id: separator
+        anchors.top: easyTweakHeaderLabel.bottom
+        anchors.topMargin: 8
+        anchors {right: parent.right ; left: parent.left}
+        source: "image://theme/meegotouch-groupheader-inverted-background"
     }
 
     // states
