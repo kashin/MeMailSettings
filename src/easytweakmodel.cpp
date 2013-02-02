@@ -13,6 +13,7 @@ EasyTweakModel::EasyTweakModel(QObject *parent)
     roles[tweakType] = "tweakType";
     roles[settingType] = "settingType";
     roles[settingValue] = "settingValue";
+    roles[settingStringValue] = "settingStringValue";
     roles[accountIdRole] = "accountIdRole";
     setRoleNames(roles);
 }
@@ -39,10 +40,16 @@ void EasyTweakModel::initModel()
                              setting);
 
             setting = new EasyTweakSetting(QString("Fetch full message's MIME"),
-                                           QString("email/email_mime"),
+                                           QString("email_mime"),
                                            EasyTweakSetting::booleanSetting,
                                            EasyTweakSetting::mime);
             mSettings.insert(EasyTweakSetting::mime,
+                             setting);
+            setting = new EasyTweakSetting(QString("Force EAS protocol version"),
+                                           QString("use_version"),
+                                           EasyTweakSetting::enumSetting,
+                                           EasyTweakSetting::useVersion);
+            mSettings.insert(EasyTweakSetting::useVersion,
                              setting);
         }
         //TODO: find some tweaks for non-MfE accounts
@@ -78,6 +85,22 @@ QVariant EasyTweakModel::data(const QModelIndex& index, int role) const
                     return value.toInt() ? false : true;
                 case EasyTweakSetting::mime:
                     return value;
+                case EasyTweakSetting::useVersion:
+                    return !value.isNull();
+            }
+        }
+    case settingStringValue:
+        {
+            QVariant value = mSettingsReader->getAccountsValue(setting->getSettingKeyName(), mAccountId);
+            switch(setting->getSetting())
+            {
+                case EasyTweakSetting::syncBack:
+                case EasyTweakSetting::mime:
+                    return QString("");
+                case EasyTweakSetting::useVersion:
+                    return value.isValid() ? value : QString("");
+                default:
+                    return QString("");
             }
         }
     case accountIdRole:
@@ -99,20 +122,84 @@ void EasyTweakModel::saveBoolSetting(const int index, const bool checked)
         case EasyTweakSetting::syncBack:
             {
                 mSettingsReader->saveAccountsSetting(mAccountId,
-                                                     QString("email/past_time"),
+                                                     setting->getSettingKeyName(),
                                                      checked ? 0 : 3);
                 break;
             }
         case EasyTweakSetting::mime:
             {
                 mSettingsReader->saveAccountsSetting(mAccountId,
-                                                 QString("email/email_mime"),
+                                                 setting->getSettingKeyName(),
                                                  checked ? true : false);
-                mSettingsReader->saveAccountsSetting(mAccountId,
-                                                 QString("email_mime"),
+                mSettingsReader->saveAccountsSetting(mAccountId, QString("email/") +
+                                                 setting->getSettingKeyName(),
                                                  checked ? true : false);
                 break;
             }
+        default:
+            break;
+        }
+    }
+}
+
+void EasyTweakModel::saveEnumSetting(const int index, const bool checked, const QVariant &value)
+{
+    if ( (index >= 0) && (index < mSettings.count()) )
+    {
+        const EasyTweakSetting* setting = mSettings.value(index);
+        switch(setting->getSetting())
+        {
+            case EasyTweakSetting::useVersion:
+                {
+                    if (checked)
+                    {
+                        mSettingsReader->saveAccountsSetting(mAccountId,
+                                             setting->getSettingKeyName(),
+                                                         value);
+                    }
+                    else
+                    {
+                        mSettingsReader->removeEmailSetting(mAccountId,
+                                             setting->getSettingKeyName());
+                    }
+                }
+            case EasyTweakSetting::syncBack:
+            case EasyTweakSetting::mime:
+                return;
+            default:
+                qDebug() << Q_FUNC_INFO << "wtf???";
+                return;
+        }
+    }
+}
+
+void EasyTweakModel::saveStringSetting(const int index, const bool checked,const QVariant &value)
+{
+    if ( (index >= 0) && (index < mSettings.count()) )
+    {
+        const EasyTweakSetting* setting = mSettings.value(index);
+        switch(setting->getSetting())
+        {
+            case EasyTweakSetting::useVersion:
+                {
+                    if (checked)
+                    {
+                        mSettingsReader->saveAccountsSetting(mAccountId,
+                                             setting->getSettingKeyName(),
+                                                         value);
+                    }
+                    else
+                    {
+                        mSettingsReader->removeEmailSetting(mAccountId,
+                                             setting->getSettingKeyName());
+                    }
+                }
+            case EasyTweakSetting::syncBack:
+            case EasyTweakSetting::mime:
+                return;
+            default:
+                qDebug() << Q_FUNC_INFO << "wtf???";
+                return;
         }
     }
 }

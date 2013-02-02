@@ -13,10 +13,27 @@ AccountSettingsReader::AccountSettingsReader(QObject *parent)
 {
 }
 
-const AccountIdList AccountSettingsReader::getAccountsIds() const
+const AccountIdList AccountSettingsReader::getAccountsIds(const QString providerName) const
 {
     if (mAccountsManager)
-        return mAccountsManager->accountListEnabled("e-mail");
+    {
+        if (providerName.isEmpty())
+        {
+            return mAccountsManager->accountListEnabled("e-mail");
+        }
+        AccountIdList ids = mAccountsManager->accountListEnabled("e-mail");
+        AccountIdList resIds;
+        foreach(AccountId id, ids)
+        {
+            qDebug() << Q_FUNC_INFO << "Account=" << id;
+            if (getProviderName(id) == providerName)
+            {
+                qDebug() << Q_FUNC_INFO << "Account" << id << "is" << providerName << "account";
+                resIds << id;
+            }
+        }
+        return resIds;
+    }
     qCritical() << Q_FUNC_INFO << "something nasty is happened, accounts manager is NULL!";
     return AccountIdList();
 }
@@ -143,6 +160,8 @@ const Accounts::ServiceList AccountSettingsReader::getAccountsServices(const Acc
 
 void AccountSettingsReader::saveAccountsSetting(const Accounts::AccountId &id, const QString &key, const QVariant &value)
 {
+    // TODO: add Service for EasyTweak Mode
+
     Account *acc = mAccountsManager->account(id);
     if (acc)
     {
@@ -167,7 +186,67 @@ void AccountSettingsReader::saveAccountsSetting(const Accounts::AccountId &id, c
                 return;
             }
         }
-        qWarning() << Q_FUNC_INFO << "Setting" << key << "is not saved in account" << id;
+        // Saving a new setting in the account as an Email setting
+        qDebug() << Q_FUNC_INFO << "saving a new setting as an email setting. Key=" << key
+                 << "value=" << value;
+        Accounts::Service* mfeMailService = 0;
+        foreach (Accounts::Service* service, services)
+        {
+            if (service && service->serviceType() == "e-mail")
+            {
+                mfeMailService = service;
+                break;
+            }
+        }
+
+        if (mfeMailService == 0)
+            qWarning() << Q_FUNC_INFO << "Mail service is 0!";
+        acc->selectService(mfeMailService);
+        acc->setValue(key, value);
+        acc->syncAndBlock();
+        delete acc;
+        return;
+    }
+    qWarning() << Q_FUNC_INFO << "account" << id << "not found";
+    return;
+}
+
+void AccountSettingsReader::removeGlobalSetting(const Accounts::AccountId &id, const QString &key)
+{
+    Account *acc = mAccountsManager->account(id);
+    if (acc)
+    {
+        acc->selectService(NULL);
+        acc->remove(key);
+        acc->syncAndBlock();
+        delete acc;
+        return;
+    }
+    qWarning() << Q_FUNC_INFO << "account" << id << "not found";
+    return;
+}
+
+void AccountSettingsReader::removeEmailSetting(const Accounts::AccountId &id, const QString &key)
+{
+    Account *acc = mAccountsManager->account(id);
+    if (acc)
+    {
+        Accounts::ServiceList services = acc->services();
+        Accounts::Service* mfeMailService = 0;
+        foreach (Accounts::Service* service, services)
+        {
+            if (service && service->serviceType() == "e-mail")
+            {
+                mfeMailService = service;
+                break;
+            }
+        }
+        if (mfeMailService == 0)
+            qWarning() << Q_FUNC_INFO << "Mail service is 0!";
+
+        acc->selectService(mfeMailService);
+        acc->remove(key);
+        acc->syncAndBlock();
         delete acc;
         return;
     }

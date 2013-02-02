@@ -11,13 +11,15 @@ class EasyTweakSetting
 public:
     enum Types {
         booleanSetting = 0,
+        enumSetting,       //for future updates for non-boolean settings
         stringSetting,       //for future updates for non-boolean settings
         intSetting           //for future updates for non-boolean settings
     };
 
     enum Settings {
         syncBack = 0,
-        mime
+        mime,
+        useVersion
     };
 
     explicit EasyTweakSetting(const QString& settingName,
@@ -53,6 +55,7 @@ public:
         tweakType,
         settingType,
         settingValue,
+        settingStringValue,
         accountIdRole
     };
 
@@ -66,6 +69,8 @@ public:
 
     Q_INVOKABLE void setAccountId(const int accountId);
     Q_INVOKABLE void saveBoolSetting(const int index, const bool checked);
+    Q_INVOKABLE void saveEnumSetting(const int index, const bool checked, const QVariant& value);
+    Q_INVOKABLE void saveStringSetting(const int index, const bool checked, const QVariant& value);
 
 private:
     EasyTweakSetting* getSettingFromIndex(const QModelIndex& index) const;

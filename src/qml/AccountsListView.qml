@@ -4,6 +4,7 @@ import com.nokia.meego 1.0
 ListView {
     id: accountsListView
     anchors.fill: parent
+    property bool showOnlyMfE: false
 
     header: AccountsListHeader {
     }
@@ -13,5 +14,12 @@ ListView {
     model: accountsModel
     delegate: AccountsItem {
         Component.onCompleted: itemClicked.connect(accountsListView.itemClicked)
+    }
+
+    onShowOnlyMfEChanged: {
+        accountsModel.setShowOnlyMfE(showOnlyMfE);
+    }
+    Component.onCompleted: {
+        accountsModel.setShowOnlyMfE(showOnlyMfE);
     }
 }

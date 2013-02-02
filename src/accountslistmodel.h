@@ -27,12 +27,16 @@ public:
     virtual QModelIndex parent(const QModelIndex &idx) const;
     virtual QVariant data(const QModelIndex& index, int role) const;
 
+    Q_INVOKABLE virtual void setShowOnlyMfE(bool show);
+
 private:
+    void initModel();
     Accounts::AccountId getIdFromIndex(const QModelIndex& index) const;
 
 private:
     AccountSettingsReader* mAccountSettingsReader;
     Accounts::AccountIdList mIds;
+    bool mShowOnlyMfE;
 };
 
 #endif // ACCOUNTSLISTMODEL_H

@@ -59,7 +59,21 @@ ListView {
 
     delegate: EasyTweakItem {
         onItemClicked: {
-            easyTweakModel.saveBoolSetting(index, checked);
+            if (tweakType === 0)
+            {
+                easyTweakModel.saveBoolSetting(index, checked);
+                return;
+            }
+            if (tweakType === 1)
+            {
+                easyTweakModel.saveEnumSetting(index, checked, value)
+                return;
+            }
+            if (tweakType === 2)
+            {
+                easyTweakModel.saveStringSetting(index, checked, value)
+                return;
+            }
         }
     }
 

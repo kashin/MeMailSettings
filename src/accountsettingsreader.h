@@ -15,7 +15,7 @@ class AccountSettingsReader : public QObject
 public:
     explicit AccountSettingsReader(QObject *parent = 0);
 
-   const Accounts::AccountIdList getAccountsIds() const;
+   const Accounts::AccountIdList getAccountsIds(const QString providerName) const;
    const QStringList getAccountsKeys(const Accounts::Service* service,
                                      const Accounts::AccountId& id) const;
    const QString getAccountsDisplayName(const Accounts::AccountId& id) const;
@@ -26,6 +26,10 @@ public:
    const Accounts::ServiceList getAccountsServices(const Accounts::AccountId& id) const;
    void saveAccountsSetting(const Accounts::AccountId& id,
                             const QString& key, const QVariant& value);
+   void removeGlobalSetting(const Accounts::AccountId& id,
+                            const QString& key);
+   void removeEmailSetting(const Accounts::AccountId& id,
+                           const QString& key);
    bool isMfeAccount(const Accounts::AccountId& id);
 
 signals:

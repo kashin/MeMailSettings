@@ -49,6 +49,7 @@ INSTALLS += target qmlgui desktop icon80
                   qml/AccountsListView.qml \
                   qml/AccountsItem.qml \
                   qml/AccountsPage.qml \
+                  qml/DropDown.qml \
                   qml/FoldersItem.qml \
                   qml/FoldersListPage.qml \
                   qml/FoldersListView.qml \
