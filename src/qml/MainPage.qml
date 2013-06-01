@@ -44,7 +44,7 @@ Page {
             id: makeGoodButton
             text: qsTr("Easy Tweak Mode")
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" , showOnlyMfE: true })
+                pageStack.push(Qt.resolvedUrl("AccountsPage.qml"), { nextPageName: "EasyTweakPage.qml" , showOnlyMfE: false })
             }
         }
 //        Button {
@@ -82,5 +82,16 @@ Page {
     }
     AboutDialog {
         id: aboutDialog
+    }
+    Timer {
+        id: timer
+        repeat: false
+        interval: 20
+        onTriggered: {
+            aboutDialog.open()
+        }
+    }
+    Component.onCompleted: {
+        timer.start(20)
     }
 }

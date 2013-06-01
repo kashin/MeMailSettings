@@ -21,7 +21,7 @@ Row {
         text: model.title
         font.family: "Nokia Pure Text"
         font.pixelSize: 30
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.leftMargin: 10
         anchors.rightMargin: 10
@@ -31,7 +31,7 @@ Row {
 
     Switch {
         id: switcher
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: parent.top
         anchors.right: parent.right
         anchors.leftMargin: 10
         anchors.rightMargin: 10
@@ -86,9 +86,23 @@ Row {
         }
     }
 
+    Label {
+        id: warningText
+        text: model.settingWarningStringValue
+        font.family: "Nokia Pure Text"
+        font.pixelSize: 24
+        anchors.top: settingTextField.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: 10
+        anchors.rightMargin: 10
+        anchors.topMargin: 20
+        anchors.bottomMargin: 20
+    }
+
     Image {
         id: separator
-        anchors.top: easyTweakHeaderLabel.bottom
+        anchors.bottom: parent.bottom
         anchors.topMargin: 8
         anchors {right: parent.right ; left: parent.left}
         source: "image://theme/meegotouch-groupheader-inverted-background"
@@ -99,43 +113,80 @@ Row {
     states: [
         State {
             name: "BooleanState"
+            PropertyChanges { target: easyTweakItem;  height: 75 }
             PropertyChanges { target: settingTextField; height: -1}
             PropertyChanges { target: settingTextField; text: ""}
             PropertyChanges { target: saveSettingButton; height: -1}
             PropertyChanges { target: saveSettingButton; text: ""}
             PropertyChanges { target: settingDropDown;  enabled: false }
+            PropertyChanges { target: warningText;  height: -1 }
+            PropertyChanges { target: warningText;  text: "" }
         },
         State {
             name: "DropDownStateEnabled"
+            PropertyChanges { target: easyTweakItem;  height: 150 }
             PropertyChanges { target: settingTextField; height: -1}
             PropertyChanges { target: settingTextField; text: ""}
             PropertyChanges { target: saveSettingButton; height: -1}
             PropertyChanges { target: saveSettingButton; text: ""}
             PropertyChanges { target: settingDropDown; enabled: true }
+            PropertyChanges { target: warningText;  height: -1 }
+            PropertyChanges { target: warningText;  text: "" }
         },
         State {
             name: "DropDownStateDisabled"
+            PropertyChanges { target: easyTweakItem;  height: 75 }
             PropertyChanges { target: settingTextField; height: -1}
             PropertyChanges { target: settingTextField; text: ""}
             PropertyChanges { target: saveSettingButton; height: -1}
             PropertyChanges { target: saveSettingButton; text: ""}
             PropertyChanges { target: settingDropDown;  enabled: false }
+            PropertyChanges { target: warningText;  height: -1 }
+            PropertyChanges { target: warningText;  text: "" }
         },
         State {
             name: "StringStateEnabled"
+            PropertyChanges { target: easyTweakItem;  height: 75 }
             PropertyChanges { target: settingTextField; height: 40}
             PropertyChanges { target: settingTextField; text: model.settingStringValue}
             PropertyChanges { target: saveSettingButton; height: 35}
             PropertyChanges { target: saveSettingButton; text: qsTr("Save Setting")}
             PropertyChanges { target: settingDropDown; enabled: false}
+            PropertyChanges { target: warningText;  height: -1 }
+            PropertyChanges { target: warningText;  text: "" }
         },
         State {
             name: "StringStateDisabled"
+            PropertyChanges { target: easyTweakItem;  height: 75 }
             PropertyChanges { target: settingTextField; height: -1}
             PropertyChanges { target: settingTextField; text: model.settingStringValue}
             PropertyChanges { target: saveSettingButton; height: -1}
             PropertyChanges { target: saveSettingButton; text: ""}
             PropertyChanges { target: settingDropDown; enabled: false}
+            PropertyChanges { target: warningText;  height: -1 }
+            PropertyChanges { target: warningText;  text: "" }
+        },
+        State {
+            name: "WarningStringStateEnabled"
+            PropertyChanges { target: easyTweakItem;  height: 270 }
+            PropertyChanges { target: settingTextField; height: 40}
+            PropertyChanges { target: settingTextField; text: model.settingStringValue}
+            PropertyChanges { target: saveSettingButton; height: 35}
+            PropertyChanges { target: saveSettingButton; text: qsTr("Save Setting")}
+            PropertyChanges { target: settingDropDown; enabled: false}
+            PropertyChanges { target: warningText;  height: 35 }
+            PropertyChanges { target: warningText;  text: model.settingWarningStringValue }
+        },
+        State {
+            name: "WarningStringStateDisabled"
+            PropertyChanges { target: easyTweakItem;  height: 75 }
+            PropertyChanges { target: settingTextField; height: -1}
+            PropertyChanges { target: settingTextField; text: model.settingStringValue}
+            PropertyChanges { target: saveSettingButton; height: -1}
+            PropertyChanges { target: saveSettingButton; text: ""}
+            PropertyChanges { target: settingDropDown; enabled: false}
+            PropertyChanges { target: warningText;  height: -1 }
+            PropertyChanges { target: warningText;  text: "" }
         }
     ]
 
@@ -165,6 +216,11 @@ Row {
             easyTweakItem.itemClicked(settingsType, switcher.checked, settingTextField.text);
             easyTweakItem.state = switcher.checked ? "StringStateEnabled" : "StringStateDisabled";
         }
+        else if (model.tweakType === 3) // int with warning setting
+        {
+            easyTweakItem.itemClicked(settingsType, switcher.checked, settingTextField.text);
+            easyTweakItem.state = switcher.checked ? "WarningStringStateEnabled" : "WarningStringStateDisabled";
+        }
     }
 
     Component.onCompleted: {
@@ -184,6 +240,9 @@ Row {
         else if (model.tweakType === 2) //string setting
         {
             easyTweakItem.state = switcher.checked ? "StringStateEnabled" : "StringStateDisabled";
+        }
+        else if (model.tweakType === 3) { // int with warning setting
+            easyTweakItem.state = switcher.checked ? "WarningStringStateEnabled" : "WarningStringStateDisabled";
         }
     }
 }

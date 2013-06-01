@@ -1,3 +1,9 @@
+memailsettings (0.1.2) unstable; urgency=low
+
+  * Added possibility to change 'max attachment size' in email application
+
+ -- Sergey Kashin <sergey.don.kashin@gmail.com>  Sat, 01 Jun 2013 19:44:31 +0400
+
 memailsettings (0.1.1) unstable; urgency=low
 
   * Fixed fetch full MIME bug
