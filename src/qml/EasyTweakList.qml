@@ -74,6 +74,11 @@ ListView {
                 easyTweakModel.saveStringSetting(index, checked, value)
                 return;
             }
+            if (tweakType === 3)
+            {
+                easyTweakModel.saveIntWithWarningSetting(index, checked, value)
+                return;
+            }
         }
     }
 

@@ -10,7 +10,8 @@ Package: memailsettings
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, applauncherd
 Description: MeMailSettings
- Application can change mail account's settings.
+ Application that can change mail account's and mail application settings.
+ If you need more info, please visit an applicaiton's support page
 XB-Maemo-Display-Name: MeMailSettings
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A

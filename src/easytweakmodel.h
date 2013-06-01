@@ -13,13 +13,15 @@ public:
         booleanSetting = 0,
         enumSetting,       //for future updates for non-boolean settings
         stringSetting,       //for future updates for non-boolean settings
+        intWithWarningSetting, // this type of settings should also show a warning message
         intSetting           //for future updates for non-boolean settings
     };
 
     enum Settings {
         syncBack = 0,
         mime,
-        useVersion
+        useVersion,
+        attachmentSize
     };
 
     explicit EasyTweakSetting(const QString& settingName,
@@ -56,7 +58,8 @@ public:
         settingType,
         settingValue,
         settingStringValue,
-        accountIdRole
+        accountIdRole,
+        settingWarningStringValue
     };
 
     explicit EasyTweakModel(QObject* parent = 0);
@@ -71,6 +74,7 @@ public:
     Q_INVOKABLE void saveBoolSetting(const int index, const bool checked);
     Q_INVOKABLE void saveEnumSetting(const int index, const bool checked, const QVariant& value);
     Q_INVOKABLE void saveStringSetting(const int index, const bool checked, const QVariant& value);
+    Q_INVOKABLE void saveIntWithWarningSetting(const int index, const bool checked, const QVariant& value);
 
 private:
     EasyTweakSetting* getSettingFromIndex(const QModelIndex& index) const;
@@ -78,7 +82,7 @@ private:
 
 private:
     int mAccountId;
-    QHash<int, EasyTweakSetting*> mSettings;
+    QList<EasyTweakSetting*> mSettings;
     AccountSettingsReader* mSettingsReader;
 };
 
